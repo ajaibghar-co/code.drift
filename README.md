@@ -1,4 +1,4 @@
-# code.yatra 	
+# code.drift 	
 
 _How can we produce a creative practice with code that is rooted in the local?_
 
