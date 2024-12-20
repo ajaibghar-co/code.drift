@@ -1,0 +1,114 @@
+{
+    "version": "v1.0.0",
+    "entity": {
+        "type": "organization",
+        "role": "maintainer",
+        "name": "Ajaibghar",
+        "email": "ambika@ajaibghar.com",
+        "phone": "",
+        "description": "code.drift is an immersive creative coding practice and workshop series, developed by Ajaibghar. It uses live-coded visuals and music with the lived experience of cities. Drawing inspiration from the concept of the dérive—an unplanned journey through a landscape—code.drift transforms urban spaces into collaborators, using the environment as a creative partner. We leverage open-source creative coding platforms such as P5JS & P5live, Hydra, Sonic Pi, and Strudel to create immersive, audio-visual cityscapes.",
+        "webpageUrl": {
+            "url": "https://www.ajaibghar.com/",
+            "wellKnown": ""
+        }
+    },
+    "projects": [{
+        "guid": "code-yatra",
+        "name": "code.yatra",
+        "description": "**code.yatra** — is a proposal for a travelling creative coding collaborative project with selected code.drift alumni who are designers/makers across smaller Indian cities.",
+        "webpageUrl": {
+            "url": "https://drive.google.com/file/d/1zaQYTGpFNbP5Oj7KDU-LSGLVXpr-gaoh/view"
+        },
+        "repositoryUrl": {
+            "url": "",
+            "wellKnown": ""
+        },
+        "licenses": [],
+        "tags": ["education", "diversity", "javascript", "audio processing", "research"]
+    },
+    {
+        "guid": "code.drift-toolkit",
+        "name": "code.drift toolkit and playground",
+        "description": "**Toolkit**: The website will have an approachable toolkit - a “make your own code.drift” kit. This will encourage and set up support systems and guidelines for anyone who wants to build a local code.drift cohort. **Code playgrounds** The code playgrounds will contain several examples, tips and tricks that can support beginner to advanced learning of creative coding tools.",
+        "webpageUrl": {
+            "url": "",
+            "wellKnown": ""
+        },
+        "repositoryUrl": {
+            "url": "",
+            "wellKnown": ""
+        },
+        "licenses": ["spdx:MIT"],
+        "tags": ["education", "diversity", "javascript", "audio processing", "research"]
+    },
+    {
+        "guid": "code.drift-summer",
+        "name": "code.drift summer school",
+        "description": "Curated online courses for creators who are interested in upskilling with creative coding",
+        "webpageUrl": {
+            "url": "",
+            "wellKnown": ""
+        },
+        "repositoryUrl": {
+            "url": "",
+            "wellKnown": ""
+        },
+        "licenses": ["spdx:MIT"],
+        "tags": ["education", "diversity", "javascript", "audio processing", "research", "art"]
+    }],
+    "funding": {
+        "channels": [
+            {
+                "guid": "mybank",
+                "type": "bank",
+                "address": "",
+                "description": "Will accept direct bank transfers. Please e-mail us for details."
+            }
+        ],
+        "plans": [
+            {
+                "guid": "code.drift-toolkit",
+                "status": "active",
+                "name": "Web development Support",
+                "description": "This will cover web development of the LMS",
+                "amount": 6000,
+                "currency": "USD",
+                "frequency": "one-time",
+                "channels": ["mybank"]
+            },
+            {
+                "guid": "events",
+                "status": "active",
+                "name": "Community Events",
+                "description": "[ALREADY FUNDED] This will cover the cost of organizing community events and artists fees.",
+                "amount": 2000,
+                "currency": "USD",
+                "frequency": "one-time",
+                "channels": ["mybank"]
+            },
+            {
+                "guid": "masterclasses",
+                "status": "active",
+                "name": "Masterclasses",
+                "description": "This will cover the cost of Subject Matter Expert lecture series. And performance making lab",
+                "amount": 2000,
+                "currency": "USD",
+                "frequency": "one-time",
+                "channels": ["mybank"]
+            },
+            {
+                "guid": "angel-plan",
+                "status": "active",
+                "name": "Goodwill plan",
+                "description": "Pay anything you wish to show your goodwill for the project.",
+                "amount": 0,
+                "currency": "USD",
+                "frequency": "one-time",
+                "channels": ["mybank", "mypay"]
+            }
+        ],
+        "history": [
+            ]
+    }
+}
+
