@@ -29,4 +29,4 @@ These creations are typically the result of collaboration between a sound artist
 
 ## code.yatra
 
-code.yatra — is a proposal for a travelling creative coding collaborative project with selected code.drift alumni who are designers/makers across smaller Indian cities. [learn more here](/codeyatra)
+code.yatra — is a proposal for a travelling creative coding collaborative project with selected code.drift alumni who are designers/makers across smaller Indian cities. [learn more here](/code.drift/codeyatra)
