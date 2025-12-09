@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "title": "Image",
+    "level": 1,
+    "description": "Load and display an image",
+    "code": {
+        "global": "let img;",
+        "preload": "function preload() {\n    img = loadImage(\"myImage.jpg\"); //Change the path to the image file\n}",
+        "setup": "function setup() {\n    createCanvas(600, 400);\n}",
+        "draw": "function draw() {\n    background(220);\n    image(img, 0, 0, width, height);\n}"
+    }
+  },
+  {
+    "id": 2,
+    "title": "Circle",
+    "level": 1,
+    "description": "Display an image and draw a circle using the sampled color",
+    "code": {
+      "global": "let img;",
+      "preload": "function preload() {\n  img = loadImage(\"myImage.png\");\n} //Change the path to the image file",
+      "setup": "function setup() {\n  createCanvas(600, 400);\n}",
+      "draw": "function draw() {\n  background(220);\n\n  // draw the image\n  image(img, 0, 0, width, height);\n\n  // get color from the image at the mouse position\n  let c = img.get(\n    map(mouseX, 0, width, 0, img.width),\n    map(mouseY, 0, height, 0, img.height)\n  );\n\n  // draw the circle using that color\n  fill(c); // try replacing c with 'pink' or 'blue'\n  noStroke();\n\n  // circle(x position, y position, radius)\n  circle(300, 200, 60); // try to change the size of the circle\n\n  // try adding more circles\n}"
+    }
+  },
+
+  {
+    "id": 3,
+    "title": "Text",
+    "level": 1,
+    "description": "Display an image with styled text on top",
+    "code": {
+      "global": "let img;",
+      "preload": "function preload() {\n  img = loadImage(\"a.png\"); // your image\n}",
+      "setup": "function setup() {\n  createCanvas(600, 400);\n}",
+      "draw": "function draw() {\n  background(220);\n\n  //image(image, top left x position, top left y position, width, height)\n  image(img, 0, 0, width, height); //try replacing width and height with different numbers\n\n  // text styling\n  textSize(50); //size of text\n  textAlign(CENTER, CENTER);\n  stroke(0);        // outline color, try changing to some other value or color\n  strokeWeight(4);  // outline thickness\n  \n  //fill(red, green, blue)\n  fill(255, 200, 0); // text color. try combining different values to make different colors\n\n  //display the text with above styling\n  text(\"hello world\", width / 2, height / 2);\n\n}"
+    }
+  },
+  {
+    "id": 4,
+    "title": "Rectangle",
+    "level": 1,
+    "description": "Draw an image on a colored rectangle",
+    "code": {
+      "global": "let img;",
+      "preload": "function preload() {\n  img = loadImage(\"a.png\"); // your image\n}",
+      "setup": "function setup() {\n  createCanvas(600, 400);\n}",
+      "draw": "function draw() {\n  background(200, 220, 255); // light blue, try changing the values\n  \n  //fill(red, green, blue)\n  fill(255, 120, 120);   // rect fill color, try combining different values to make different colors\n  stroke(0);             // rect border color, try noStroke() instead for no border or try changing to some other value or color\n  strokeWeight(3);       // outline thickness \n  //rect(top left x position, top left y position, width, height)\n  rect(80, 60, 240, 190); \n  \n  //image(image, top left x position, top left y position, width, height)\n  image(img, 100, 80, 200, 150); \n}"
+    }
+  },
+
+  {
+    "id": 5,
+    "title": "Image Textured Box",
+    "level": 1,
+    "description": "Use an image as a texture on a 3D box",
+    "code": {
+      "global": "let img;",
+      "preload": "function preload() {\n  img = loadImage(\"a.png\"); // your image\n}",
+      "setup": "function setup() {\n  createCanvas(600, 400, WEBGL); // WEBGL required for box()\n}",
+      "draw": "function draw() {\n  background(220);\n\n  // rotate the box using mouse position\n  rotateY(mouseY * 0.1);\n  rotateX(mouseX * 0.1);\n\n  texture(img); // apply the image as texture\n\n  // draw the box\n  box(200); // size of the box, try changing this\n}"
+    }
+  }
+  
+  
+  
+  
+]

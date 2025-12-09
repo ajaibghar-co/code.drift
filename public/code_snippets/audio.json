@@ -1,0 +1,62 @@
+[
+    {
+      "id": 1,
+      "title": "Sample",
+      "level": 1,
+      "description": "Load and play a sample",
+      "code": {
+          "global": "mySample = \"C:/Users/ME/Downloads/samples/mySample.wav\" #drag and drop the sample file to the IDE to update path",
+          "live_loop": "live_loop :myLoop do\n  sample mySample\n  sleep (sample_duration mySample)\nend"
+      }
+    },
+    {
+      "id": 2,
+      "title": "Ring Note Loop",
+      "level": 1,
+      "description": "A live loop that plays a fixed note and then a ring of notes.",
+      "code": {
+        "global": "",
+        "live_loop": "live_loop :ringNote do\n  play 60\n  sleep 0.5\n  play (ring 10, 20, 30, 40, 50)\n  sleep 1\nend"
+      }
+    },
+    {
+      "id": 3,
+      "title": "TB303 Synth Loop",
+      "level": 1,
+      "description": "A simple arpeggio loop using the tb303 synth.",
+      "code": {
+        "global": "",
+        "setup": "",
+        "draw": "",
+        "main": "live_loop :synth do\n  use_synth :tb303 #try changing :tb303 to piano or kalimba\n  play :c4\n  sleep 0.5\n  play :e4\n  sleep 0.5\n  play :g4\n  sleep 0.5\n  play :e4\n  sleep 0.5\nend"
+      }
+    },
+    {
+      "id": 4,
+      "title": "Hoover Scale Loop",
+      "level": 1,
+      "description": "A looping major pentatonic pattern using the hoover synth.",
+      "code": {
+        "global": "",
+        "setup": "",
+        "draw": "",
+        "main": "use_synth :hoover\nloop do\n  #try changing number of octaves, scale,release time\n  play_pattern_timed scale(:c3, :major_pentatonic, num_octaves: 3), 0.125, release: 0.1\n  sleep 0.25\nend"
+      }
+    },
+    {
+      "id": 5,
+      "title": "Chord and Arpeggio",
+      "level": 1,
+      "description": "A looping arpeggio.",
+      "code": {
+        "global": "",
+        "setup": "",
+        "draw": "",
+        "main": "use_synth :pluck\nloop do\n  #play chord(:E3, :minor) #play a chord\n  #sleep 0.5\n\n  play_pattern_timed chord(:E3, :m7), 0.25 # play arpeggio\n  sleep 0.25\nend"
+      }
+    }
+    
+    
+    
+    
+  ]
