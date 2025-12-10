@@ -6,7 +6,9 @@ import React, {
   useState,
   useRef,
 } from 'react';
+import { Inter } from "next/font/google";
 
+const inter = Inter({ subsets: ["latin"] });
 const TEXT_COLOR = '#0F172A';
 
 const WORDS = [
@@ -304,8 +306,7 @@ export default function PrintablesPage() {
                           position: 'relative',
                           zIndex: 4,
                           pointerEvents: 'none',
-                          fontFamily:
-                            "ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto",
+                          fontFamily: inter.style.fontFamily,
                           color: TEXT_COLOR,
                           fontSize,
                           textAlign: 'center',
@@ -428,8 +429,7 @@ export default function PrintablesPage() {
                     position: 'relative',
                     zIndex: 4,
                     pointerEvents: 'none',
-                    fontFamily:
-                      "ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto",
+                    fontFamily: inter.style.fontFamily,
                     color: TEXT_COLOR,
                     fontSize,
                     textAlign: 'center',
