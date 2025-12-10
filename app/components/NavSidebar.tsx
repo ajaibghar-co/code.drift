@@ -24,13 +24,12 @@ export default function NavSidebar() {
         aria-label="Open navigation"
         aria-expanded={open}
         onClick={() => setOpen(true)}
-        className="fixed z-40 top-4 left-4 flex flex-col gap-1.5 p-2 rounded-md hover:bg-black/80 transition md:top-6 md:left-6"
-      >
+        className="fixed z-40 top-4 left-4 flex flex-col gap-1.5 rounded-md hover:bg-[#D4C36A] transition md:top-6 md:left-6">
   <Image
-    src="/nav/menu.png"
+    src="/nav/menu.gif"
     alt="Menu"
-    width={50}
-    height={50}
+    width={65}
+    height={100}
   />
       </button>
 
