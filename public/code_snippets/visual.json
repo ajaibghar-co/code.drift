@@ -51,7 +51,7 @@
 
   {
     "id": 5,
-    "title": "Image Textured Box",
+    "title": "Box",
     "level": 1,
     "description": "Use an image as a texture on a 3D box",
     "code": {
@@ -60,9 +60,28 @@
       "setup": "function setup() {\n  createCanvas(600, 400, WEBGL); // WEBGL required for box()\n}",
       "draw": "function draw() {\n  background(220);\n\n  // rotate the box using mouse position\n  rotateY(mouseY * 0.1);\n  rotateX(mouseX * 0.1);\n\n  texture(img); // apply the image as texture\n\n  // draw the box\n  box(200); // size of the box, try changing this\n}"
     }
-  }
-  
-  
-  
-  
+  },
+  {
+    "id": 6,
+    "title": "Random",
+    "level": 2,
+    "description": "Use random function to introduce some chaos",
+    "code": {
+      "global": "let palette = [\n  \"#EF476F\",\n  \"#FFD166\",\n  \"#06D6A0\",\n  \"#118AB2\",\n  \"#073B4C\"\n];",
+      "setup": "function setup() {\n  createCanvas(600, 400);\n  noStroke();\n}",
+      "draw": "function draw() {\n  // Random size\n  let r = random(1, 100);\n\n  // Random color from palette\n  fill(random(palette));\n\n  // Draw circle at mouse position\n  circle(mouseX, mouseY, r);\n}"
+    }
+  },
+  {
+    "id": 7,
+    "title": "Variables",
+    "level": 2,
+    "description": "Use a variable to control the movement of an image.",
+    "code": {
+      "global": "let img;\nlet imgX = 0;",
+      "preload": "function preload() {\n  img = loadImage(\"myImage.jpg\"); // Replace with your image file\n}",
+      "setup": "function setup() {\n  createCanvas(600, 400);\n}",
+      "draw": "function draw() {\n  background(220);\n\n  // draw the image using the variable\n  image(img, imgX, 100, 200, 200);\n\n  // incrementing the value of the variable\n  imgX = imgX + 1; // try a bigger number\n}"
+    }
+  } 
 ]
