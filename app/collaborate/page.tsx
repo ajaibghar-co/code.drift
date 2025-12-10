@@ -110,6 +110,8 @@ export default function CodePage() {
     Record<number, boolean>
   >({});
 
+  const [copied, setCopied] = useState(false);
+
   // -------- data load --------
   useEffect(() => {
     let mounted = true;
@@ -167,11 +169,13 @@ export default function CodePage() {
   const copyToClipboard = useCallback(async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      console.log("Copied to clipboard");
+      setCopied(true);
+      setTimeout(() => setCopied(false), 200);
     } catch {
       console.log("Copy failed");
     }
   }, []);
+  
 
   const openLevelModal = (level: number) => {
     const audioMatches = audioPool.filter((a) => a.level === level);
@@ -311,17 +315,29 @@ export default function CodePage() {
         .pair-card-face.back { transform: rotateY(180deg); }
         .flip-icon { position: absolute; right: 8px; top: 8px; z-index: 30; background: rgba(255,255,255,0.95); border-radius: 6px; padding: 6px; border: 1px solid rgba(0,0,0,0.06); }
         .modal-flip-icon { position: absolute; right: 8px; top: 8px; z-index: 10; background: rgba(255,255,255,0.95); border-radius: 6px; padding: 6px; border: 1px solid rgba(0,0,0,0.06); }
+        .copy-glow { box-shadow: 0 0 12px rgba(255, 255, 255, 0.7); }
+        .copy-glow-off { box-shadow: none; }
       `}</style>
 
       {/* Header */}
       <header
-        className="flex items-center px-6 py-4 border-b border-slate-200"
-        style={{ height: HEADER_HEIGHT_PX }}
-      >
-        <h1 className="text-2xl font-extrabold tracking-wider">
-          Code Drift — Snippets
-        </h1>
-      </header>
+  className="flex items-center justify-center px-6 border-b border-slate-200"
+  style={{ height: '120px' }}
+>
+  <img
+    src="/code_snippets/title.png"
+    alt="Snippets Title"
+    className="select-none"
+    style={{
+      height: "80%",     // make it big relative to header
+      width: "auto",
+      objectFit: "contain",
+      display: "block",
+    }}
+  />
+</header>
+
+
 
       {/* Main */}
       <div
@@ -350,23 +366,28 @@ export default function CodePage() {
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <button
-                    onClick={() => {
-                      const text =
-                        activeSide === "audio"
-                          ? selectedAudio?.code
-                          : selectedVisual?.code;
-                      copyToClipboard(text ?? "");
-                    }}
-                    className="rounded-md text-sm disabled:opacity-50"
-                    disabled={selectedLibraryIndex == null}
-                  >
+                <button 
+                  onClick={() => {
+                    const text = activeSide === "audio" ? selectedAudio?.code : selectedVisual?.code;
+                    copyToClipboard(text ?? "");
+                  }}
+                  disabled={selectedLibraryIndex == null}
+                  className={`
+                    transition-all
+                    ${copied ? "scale-90 copy-glow" : "scale-100 copy-glow-off"}
+                  `}
+                  style={{
+                    transition: "transform 120ms ease, box-shadow 150ms ease",
+                    borderRadius: "8px", // helps glow look cleaner
+                  }}
+                >
                     <img
                       src="/code_snippets/copy.png"
                       alt="Copy"
-                      className="w-24 h-auto"
+                      className="w-24 h-auto select-none"
                     />
-                  </button>
+                </button>
+
                 </div>
               </div>
 
