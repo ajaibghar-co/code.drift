@@ -71,7 +71,7 @@ const ELEMENTS: Sticker[] = [
 
 export default function AboutCodeDriftPage() {
   return (
-    <main className="min-h-screen bg-[#FFFDF8] flex items-center justify-center px-4 py-10">
+    <main className="min-h-screen bg-[#F4E1B8] flex items-center justify-center px-4 py-10">
       <div className="w-full max-w-6xl mx-auto">
         <h1 className="sr-only">About Code Drift</h1>
 
