@@ -127,16 +127,16 @@ export default function Card({
 
       {/* SELECTED OUTLINE */}
       {isSelected && (
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            pointerEvents: "none",
-            borderRadius: 8,
-            boxShadow: "inset 0 0 0 3px rgba(255,209,0,0.25)",
-          }}
-        />
-      )}
+  <div
+    className="pointer-events-none"
+    style={{
+      position: "absolute",
+      inset: 0,
+      borderRadius: 10,
+      border: "3px solid #164938",
+    }}
+  />
+)}
     </div>
   );
 }

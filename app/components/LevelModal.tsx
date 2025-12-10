@@ -64,7 +64,6 @@ export default function LevelModal({
               return (
                 <div
                   key={`opt-${idx}`}
-                  className={`relative ${isActive ? "ring-2 ring-[#FFD400]" : ""}`}
                 >
                   <button
                     className="modal-flip-icon"
@@ -95,9 +94,7 @@ export default function LevelModal({
                       style={{
                         position: "absolute",
                         inset: 0,
-                        pointerEvents: "none",
-                        borderRadius: 8,
-                        boxShadow: "inset 0 0 0 3px rgba(255,209,0,0.14)",
+                        pointerEvents: "none"
                       }}
                     />
                   )}
