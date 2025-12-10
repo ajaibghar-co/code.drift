@@ -16,7 +16,7 @@ import {
 
 const HEADER_HEIGHT_PX = 64;
 const BOTTOM_HEIGHT_PX = 160;
-const PAGE_BG = "#F2F0EF";
+const PAGE_BG = "#F4E1B8";
 
 const ORDERED_CODE_KEYS = ["global", "preload", "setup", "draw"] as const;
 
@@ -321,7 +321,7 @@ export default function CodePage() {
 
       {/* Header */}
       <header
-  className="flex items-center justify-center px-6 border-b border-slate-200"
+  className="flex items-center justify-center px-6"
   style={{ height: '120px' }}
 >
   <img
@@ -350,10 +350,15 @@ export default function CodePage() {
             className="p-6 overflow-hidden"
             style={{ height: leftMainHeight }}
           >
-            <div className="h-full rounded-2xl border border-slate-200 p-4 flex flex-col bg-[#F8F7F6]">
+<div
+  className="h-full rounded-2xl p-4 flex flex-col"
+  style={{
+    background: "#F4E1B8",
+    border: "3px solid #164938",
+  }}
+>
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <div className="text-sm text-slate-500">Pair</div>
                   <div className="text-lg font-semibold">
                     {selectedLibraryIndex == null ? (
                       "Library empty"
@@ -391,82 +396,41 @@ export default function CodePage() {
                 </div>
               </div>
 
-              {/* Audio / Visual buttons + their selected state */}
-              <div className="mb-3 flex gap-4 items-center">
-                {/* AUDIO BUTTON */}
-                <button
-                  onClick={() => {
-                    if (selectedLibraryIndex == null) return;
-                    // audio = front -> not flipped
-                    setFlipped((prev) => ({
-                      ...prev,
-                      [selectedLibraryIndex]: false,
-                    }));
-                  }}
-                  //disabled={selectedLibraryIndex == null || !selectedAudio}
-                  className={`rounded-lg flex items-center justify-center transition 
-                    ${
-                      activeSide === "audio"
-                        ? "ring-0"
-                        : "ring-2 ring-blue-400"
-                    }
-                  `}
-                >
-                  <img
-                    src="/code_snippets/audio.png"
-                    alt="Audio"
-                    className="w-24 h-14 opacity-90"
-                  />
-                </button>
-
-                {/* VISUAL BUTTON */}
-                <button
-                  onClick={() => {
-                    if (selectedLibraryIndex == null) return;
-                    // visual = back -> flipped
-                    setFlipped((prev) => ({
-                      ...prev,
-                      [selectedLibraryIndex]: true,
-                    }));
-                  }}
-                  //disabled={selectedLibraryIndex == null || !selectedVisual}
-                  className={`rounded-lg flex items-center justify-center transition 
-                    ${
-                      activeSide === "visual"
-                        ? "ring-0"
-                        : "ring-2 ring-blue-400"
-                    }
-                  `}
-                >
-                  <img
-                    src="/code_snippets/visual.png"
-                    alt="Visual"
-                    className="w-24 h-14 opacity-90"
-                  />
-                </button>
-              </div>
-
               {/* Code window */}
-              <div className="flex-1 overflow-auto rounded-md bg-white border border-slate-100 shadow-sm">
-                {selectedLibraryIndex == null ? (
-                  <div className="p-6 text-center text-slate-500">
-                    Your library is empty — use the Level buttons below to add
-                    pairs.
-                  </div>
-                ) : (
-                  <pre className="m-0 p-4 text-sm leading-6 whitespace-pre-wrap font-mono">
-                    {activeSide === "audio"
-                      ? selectedAudio?.code ?? "// no audio snippet"
-                      : selectedVisual?.code ?? "// no visual snippet"}
-                  </pre>
-                )}
-              </div>
+              <div
+  className="flex-1 overflow-auto rounded-md border border-slate-100 shadow-sm"
+  style={{
+    background: activeSide === "audio" ? "#D4C36A" : "#AA2E5C",
+    color: activeSide === "audio" ? "#164938" : "#D4C36A",
+  }}
+>
+  {selectedLibraryIndex == null ? (
+    <div className="p-6 text-center" 
+      style={{ 
+        color: activeSide === "audio" ? "#164938" : "#D4C36A" 
+      }}
+    >
+      Your library is empty — use the potion buttons below to add potions. Start with Elementary Potions.
+    </div>
+  ) : (
+    <pre
+      className="m-0 p-4 text-sm leading-6 whitespace-pre-wrap font-mono"
+      style={{
+        color: activeSide === "audio" ? "#164938" : "#D4C36A",
+      }}
+    >
+      {activeSide === "audio"
+        ? selectedAudio?.code ?? "// no audio snippet"
+        : selectedVisual?.code ?? "// no visual snippet"}
+    </pre>
+  )}
+</div>
+
             </div>
           </main>
 
           {/* bottom level buttons */}
           <div
-            className="border-t border-slate-100"
             style={{ height: BOTTOM_HEIGHT_PX }}
           >
             <div className="h-full flex items-center justify-center p-4">
@@ -523,7 +487,7 @@ export default function CodePage() {
 
         {/* Right: library */}
         <aside
-          className="w-96 border-l border-slate-100 bg-transparent overflow-auto"
+          className="w-96 bg-transparent overflow-auto"
           style={{ height: containerHeight }}
         >
           <div className="p-6 h-full flex flex-col">
@@ -537,8 +501,8 @@ export default function CodePage() {
 
             <div className="flex-1 overflow-y-auto pr-3">
               {libraryCount === 0 ? (
-                <div className="text-sm text-slate-500">
-                  No pairs added yet.
+              <div className="text-sm" style={{ color: "#164938" }}>
+                Pick your potion recipe! Start from Elementary Potions.
                 </div>
               ) : (
                 <ul className="grid grid-cols-1 gap-4">
