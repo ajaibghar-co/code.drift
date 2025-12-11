@@ -7,7 +7,6 @@ import { useState } from "react";
 import IrregularModal from "../components/Software";
 
 export default function HowToPlayPage() {
-
   const [open, setOpen] = useState(false);
 
   return (
@@ -87,18 +86,23 @@ export default function HowToPlayPage() {
                 height={120}
                 className="w-full h-auto"
               />
+
+              {/* Animated button — accessible with keyboard focus */}
               <button
-                onClick={() => setOpen(true)}   // <-- open modal
-                className="w-full h-auto focus:outline-none"
+                onClick={() => setOpen(true)}
+                aria-label="Open softwares modal"
+                className="softwares-btn w-full p-0 border-0 bg-transparent focus:outline-none"
               >
                 <Image
                   src="/howto/softwares.png"
                   alt="With Sonic Pi and p5.js"
                   width={210}
                   height={120}
-                  className="w-full h-auto cursor-pointer"
+                  className="w-full h-auto"
+                  priority={false}
                 />
               </button>
+
               <IrregularModal open={open} onClose={() => setOpen(false)} />
             </div>
 
@@ -119,280 +123,311 @@ export default function HowToPlayPage() {
       {/* ⭐️ DIVIDER IMAGE — inserted here */}
       <div className="w-full flex justify-center my-4">
         <div className="relative w-[120px] sm:w-[150px] md:w-[680px] aspect-[200/10]">
-          <Image
-            src="/howto/div.png"
-            alt="Divider"
-            fill
-            className="object-contain"
-          />
+          <Image src="/howto/div.png" alt="Divider" fill className="object-contain" />
         </div>
       </div>
-
 
       {/* SECTION 2: GAME ROLES / CHARACTERS SECTION */}
       <section className="relative w-full max-w-5xl mt-16 md:mt-20 flex flex-col gap-10">
-  {/* Stars background */}
-  <Image
-    src="/howto/stars.png"
-    alt=""
-    aria-hidden="true"
-    fill
-    className="object-cover opacity-50 pointer-events-none"
-  />
-
-  <div className="relative z-10 flex flex-col gap-10">
-    {/* TOP: ROLES HEADER + CHARACTER GRID */}
-    <div className="flex flex-col md:flex-row gap-8 md:gap-10 items-start">
-      {/* Left column: "GAME ROLES" graphic */}
-      <div className="flex flex-col items-center md:items-start gap-4">
-        <div className="relative w-[80px] sm:w-[100px] md:w-[160px] aspect-[200/500]">
-          <Image
-            src="/howto/roles.png"
-            alt="Game roles text"
-            fill
-            className="object-contain"
-          />
-        </div>
-      </div>
-
-      {/* Character grid */}
-      <div className="flex-1">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-8 justify-items-center">
-          {/* Drift master */}
-          <div className="relative w-[220px] sm:w-[260px] md:w-[320px] aspect-[4/3]">
-            <Image
-              src="/howto/dm.png"
-              alt="Drift master"
-              fill
-              className="object-contain"
-            />
-          </div>
-          {/* Shape shifter */}
-          <div className="relative w-[220px] sm:w-[260px] md:w-[320px] aspect-[4/3]">
-            <Image
-              src="/howto/shape.png"
-              alt="Shape shifter"
-              fill
-              className="object-contain"
-            />
-          </div>
-          {/* Vizard */}
-          <div className="relative w-[220px] sm:w-[260px] md:w-[320px] aspect-[4/3]">
-            <Image
-              src="/howto/vizard.png"
-              alt="Vizard"
-              fill
-              className="object-contain"
-            />
-          </div>
-          {/* Treble maker */}
-          <div className="relative w-[220px] sm:w-[260px] md:w-[320px] aspect-[4/3]">
-            <Image
-              src="/howto/treble.png"
-              alt="Treble maker"
-              fill
-              className="object-contain"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-
-    {/* BOTTOM ROW: pick | (anyNumber + atleastOneDM stacked) | roles-2 */}
-    <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 items-start justify-items-center">
-      {/* Left column: pick.png */}
-      <div className="relative w-[220px] sm:w-[260px] md:w-[280px]">
+        {/* Stars background */}
         <Image
-          src="/howto/pick.png"
-          alt="Pick a role based on your interests"
-          width={280}
-          height={210}
-          className="w-full h-auto object-contain"
+          src="/howto/stars.png"
+          alt=""
+          aria-hidden="true"
+          fill
+          className="object-cover opacity-50 pointer-events-none"
         />
-      </div>
 
-      {/* Middle column: anyNumber + atleastOneDM stacked with NO vertical gap */}
-      <div className="flex flex-col items-center md:items-start">
-        <div className="w-[220px] sm:w-[260px] md:w-[280px]">
-          <Image
-            src="/howto/anyNumber.png"
-            alt="Any number of players can be vizards, treblemakers, and shapeshifters"
-            width={280}
-            height={210}
-            className="w-full h-auto object-contain block"
-          />
+        <div className="relative z-10 flex flex-col gap-10">
+          {/* TOP: ROLES HEADER + CHARACTER GRID */}
+          <div className="flex flex-col md:flex-row gap-8 md:gap-10 items-start">
+            {/* Left column: "GAME ROLES" graphic */}
+            <div className="flex flex-col items-center md:items-start gap-4">
+              <div className="relative w-[80px] sm:w-[100px] md:w-[160px] aspect-[200/500]">
+                <Image src="/howto/roles.png" alt="Game roles text" fill className="object-contain" />
+              </div>
+            </div>
+
+            {/* Character grid */}
+            <div className="flex-1">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-8 justify-items-center">
+                {/* Drift master */}
+                <div className="relative w-[220px] sm:w-[260px] md:w-[320px] aspect-[4/3]">
+                  <Image src="/howto/dm.png" alt="Drift master" fill className="object-contain" />
+                </div>
+                {/* Shape shifter */}
+                <div className="relative w-[220px] sm:w-[260px] md:w-[320px] aspect-[4/3]">
+                  <Image src="/howto/shape.png" alt="Shape shifter" fill className="object-contain" />
+                </div>
+                {/* Vizard */}
+                <div className="relative w-[220px] sm:w-[260px] md:w-[320px] aspect-[4/3]">
+                  <Image src="/howto/vizard.png" alt="Vizard" fill className="object-contain" />
+                </div>
+                {/* Treble maker */}
+                <div className="relative w-[220px] sm:w-[260px] md:w-[320px] aspect-[4/3]">
+                  <Image src="/howto/treble.png" alt="Treble maker" fill className="object-contain" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* BOTTOM ROW: pick | (anyNumber + atleastOneDM stacked) | roles-2 */}
+          <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 items-start justify-items-center">
+            {/* Left column: pick.png */}
+            <div className="relative w-[220px] sm:w-[260px] md:w-[280px]">
+              <Image
+                src="/howto/pick.png"
+                alt="Pick a role based on your interests"
+                width={280}
+                height={210}
+                className="w-full h-auto object-contain"
+              />
+            </div>
+
+            {/* Middle column: anyNumber + atleastOneDM stacked with NO vertical gap */}
+            <div className="flex flex-col items-center md:items-start">
+              <div className="w-[220px] sm:w-[260px] md:w-[280px]">
+                <Image
+                  src="/howto/anyNumber.png"
+                  alt="Any number of players can be vizards, treblemakers, and shapeshifters"
+                  width={280}
+                  height={210}
+                  className="w-full h-auto object-contain block"
+                />
+              </div>
+              <div className="w-[220px] sm:w-[260px] md:w-[280px] ">
+                {/* -mt-2 pulls it up a tiny bit so they visually touch */}
+                <Image
+                  src="/howto/atleastOneDM.png"
+                  alt="There must be at least one driftmaster"
+                  width={280}
+                  height={210}
+                  className="w-full h-auto object-contain block"
+                />
+              </div>
+            </div>
+
+            {/* Right column: roles-2.png (bigger) */}
+            <div className="relative w-[260px] sm:w-[320px] md:w-[380px]">
+              <Image
+                src="/howto/roles-2.png"
+                alt="In the next phases of the game..."
+                width={380}
+                height={260}
+                className="w-full h-auto object-contain"
+              />
+            </div>
+          </div>
         </div>
-        <div className="w-[220px] sm:w-[260px] md:w-[280px] ">
-          {/* -mt-2 pulls it up a tiny bit so they visually touch */}
-          <Image
-            src="/howto/atleastOneDM.png"
-            alt="There must be at least one driftmaster"
-            width={280}
-            height={210}
-            className="w-full h-auto object-contain block"
-          />
-        </div>
-      </div>
+      </section>
 
-      {/* Right column: roles-2.png (bigger) */}
-      <div className="relative w-[260px] sm:w-[320px] md:w-[380px]">
-        <Image
-          src="/howto/roles-2.png"
-          alt="In the next phases of the game..."
-          width={380}
-          height={260}
-          className="w-full h-auto object-contain"
-        />
-      </div>
-    </div>
-  </div>
-</section>
-
-
-
-      
       {/* ⭐️ DIVIDER IMAGE — inserted here */}
       <div className="w-full flex justify-center mt-4 mb-16">
         <div className="relative w-[120px] sm:w-[150px] md:w-[680px] aspect-[200/10]">
-          <Image
-            src="/howto/div.png"
-            alt="Divider"
-            fill
-            className="object-contain"
-          />
+          <Image src="/howto/div.png" alt="Divider" fill className="object-contain" />
         </div>
       </div>
-  
-{/* --- RULES  --- */}
-<section
-  className="w-full flex justify-center py-16"
-  style={{
-    backgroundImage: "url('/howto/bg.png')",
-    backgroundRepeat: "repeat",
-    backgroundSize: "400px",
-  }}
->
-  {/* STACKED PINK RECTANGLES INSIDE SAME BG */}
-  <div className="w-full flex flex-col items-center gap-12">
-    {/* -- PINK RECTANGLE: RULES + PHASE 1 -- */}
-    <div className="relative w-[95%] sm:w-[85%] md:w-[70%] lg:w-[60%]">
-      {/* background blob */}
-      <div className="absolute inset-0 bg-[#F7AFCB] rounded-[50px] z-0" />
 
-      {/* content */}
-      <div className="relative z-10 px-6 sm:px-8 lg:px-10 py-8 sm:py-10 flex flex-col gap-8">
-        {/* RULES OF THE GAME */}
-        <div className="relative w-[260px] sm:w-[320px] md:w-[600px] mx-auto">
-          <Image
-            src="/howto/rules.png"
-            alt="Rules of the game"
-            width={1800}
-            height={300}
-            className="object-contain"
-          />
-        </div>
+      {/* --- RULES  --- */}
+      <section
+        className="w-full flex justify-center py-16"
+        style={{
+          backgroundImage: "url('/howto/bg.png')",
+          backgroundRepeat: "repeat",
+          backgroundSize: "400px",
+        }}
+      >
+        {/* STACKED PINK RECTANGLES INSIDE SAME BG */}
+        <div className="w-full flex flex-col items-center gap-12">
+          {/* -- PINK RECTANGLE: RULES + PHASE 1 -- */}
+          <div className="relative w-[95%] sm:w-[85%] md:w-[70%] lg:w-[60%]">
+            {/* background blob */}
+            <div className="absolute inset-0 bg-[#F7AFCB] rounded-[50px] z-0" />
 
-        {/* GOAL TEXT */}
-        <div className="relative w-[360px] sm:w-[460px] md:w-[520px] aspect-[16/5]">
-          <Image
-            src="/howto/goals.png"
-            alt="Goal: players collect moments, images and sounds..."
-            fill
-            className="object-contain"
-          />
-        </div>
+            {/* content */}
+            <div className="relative z-10 px-6 sm:px-8 lg:px-10 py-8 sm:py-10 flex flex-col gap-8">
+              {/* RULES OF THE GAME */}
+              <div className="relative w-[260px] sm:w-[320px] md:w-[600px] mx-auto">
+                <Image
+                  src="/howto/rules.png"
+                  alt="Rules of the game"
+                  width={1800}
+                  height={300}
+                  className="object-contain"
+                />
+              </div>
 
-        {/* PHASE 1 IMAGE */}
-        <div className="relative mt-6 md:w-[70%] lg:w-[60%] mx-auto">
-          <Image
-            src="/howto/phase1.png"
-            alt="Phase 1: Collecting ingredients"
-            width={900}
-            height={1200}
-            className="w-full h-auto object-contain mx-auto"
-          />
-        </div>
-      </div>
-    </div>
-{/* WHITE RECTANGLE — CAFE */}
-<div className="relative w-[80%] sm:w-[70%] md:w-[35%] lg:w-[35%] mx-auto">
-  {/* White rounded rectangle */}
-  <div className="absolute inset-0 bg-[#D4C36A] rounded-[35px] z-0" />
+              {/* GOAL TEXT */}
+              <div className="relative w-[360px] sm:w-[460px] md:w-[520px] aspect-[16/5]">
+                <Image
+                  src="/howto/goals.png"
+                  alt="Goal: players collect moments, images and sounds..."
+                  fill
+                  className="object-contain"
+                />
+              </div>
 
-  {/* Content inside */}
-  <div className="relative z-10 py-10 flex justify-center items-center">
-    <div className="w-[75%] sm:w-[65%] md:w-[60%] lg:w-[95%] mx-auto">
-      <Image
-        src="/howto/cafe.png"
-        alt="Café"
-        width={900}
-        height={900}
-        className="w-full h-auto object-contain mx-auto"
-      />
-    </div>
-  </div>
-</div>
+              {/* PHASE 1 IMAGE */}
+              <div className="relative mt-6 md:w-[70%] lg:w-[60%] mx-auto">
+                <Image
+                  src="/howto/phase1.png"
+                  alt="Phase 1: Collecting ingredients"
+                  width={900}
+                  height={1200}
+                  className="w-full h-auto object-contain mx-auto"
+                />
+              </div>
+            </div>
+          </div>
+          {/* WHITE RECTANGLE — CAFE */}
+          <div className="relative w-[80%] sm:w-[70%] md:w-[35%] lg:w-[35%] mx-auto">
+            {/* White rounded rectangle */}
+            <div className="absolute inset-0 bg-[#D4C36A] rounded-[35px] z-0" />
 
-    {/* -- PINK RECTANGLE: PHASE 2 -- */}
-    <div className="relative w-[95%] sm:w-[85%] md:w-[70%] lg:w-[60%]">
-      {/* background blob */}
-      <div className="absolute inset-0 bg-[#F7AFCB] rounded-[50px] z-0" />
-
-      {/* content */}
-      <div className="relative z-10 px-6 sm:px-8 lg:px-10 py-10">
-        <div className="w-full flex flex-col md:flex-row justify-center items-start gap-10">
-          {/* LEFT IMAGE */}
-          <div className="w-full md:w-4/7 flex justify-center">
-            <Image
-              src="/howto/phase2.png"
-              alt="Phase 2 Part 1"
-              width={900}
-              height={1200}
-              className="w-full h-auto object-contain"
-            />
+            {/* Content inside */}
+            <div className="relative z-10 py-10 flex justify-center items-center">
+              <div className="w-[75%] sm:w-[65%] md:w-[60%] lg:w-[95%] mx-auto">
+                <Image
+                  src="/howto/cafe.png"
+                  alt="Café"
+                  width={900}
+                  height={900}
+                  className="w-full h-auto object-contain mx-auto"
+                />
+              </div>
+            </div>
           </div>
 
-          {/* RIGHT IMAGE */}
-          <div className="w-full md:w-3/7 flex justify-center">
-            <Image
-              src="/howto/phase2-2.png"
-              alt="Phase 2 Part 2"
-              width={600}
-              height={800}
-              className="w-full h-auto object-contain"
-            />
+          {/* -- PINK RECTANGLE: PHASE 2 -- */}
+          <div className="relative w-[95%] sm:w-[85%] md:w-[70%] lg:w-[60%]">
+            {/* background blob */}
+            <div className="absolute inset-0 bg-[#F7AFCB] rounded-[50px] z-0" />
+
+            {/* content */}
+            <div className="relative z-10 px-6 sm:px-8 lg:px-10 py-10">
+              <div className="w-full flex flex-col md:flex-row justify-center items-start gap-10">
+                {/* LEFT IMAGE */}
+                <div className="w-full md:w-4/7 flex justify-center">
+                  <Image
+                    src="/howto/phase2.png"
+                    alt="Phase 2 Part 1"
+                    width={900}
+                    height={1200}
+                    className="w-full h-auto object-contain"
+                  />
+                </div>
+
+                {/* RIGHT IMAGE */}
+                <div className="w-full md:w-3/7 flex justify-center">
+                  <Image
+                    src="/howto/phase2-2.png"
+                    alt="Phase 2 Part 2"
+                    width={600}
+                    height={800}
+                    className="w-full h-auto object-contain"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* -- PINK RECTANGLE: PHASE 3 -- */}
+          <div className="relative w-[95%] sm:w-[85%] md:w-[70%] lg:w-[40%]">
+            {/* background blob */}
+            <div className="absolute inset-0 bg-[#F7AFCB] rounded-[50px] z-0" />
+
+            {/* content */}
+            <div className="relative z-10 px-6 sm:px-8 lg:px-2 py-10">
+              <div className="w-full flex flex-col md:flex-row justify-center items-start gap-10">
+                {/* LEFT IMAGE */}
+                <div className="w-full flex justify-center">
+                  <Image
+                    src="/howto/phase3.png"
+                    alt="Phase 3"
+                    width={900}
+                    height={1200}
+                    className="w-full h-auto object-contain"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      </section>
 
-        {/* -- PINK RECTANGLE: PHASE 3 -- */}
-        <div className="relative w-[95%] sm:w-[85%] md:w-[70%] lg:w-[40%]">
-      {/* background blob */}
-      <div className="absolute inset-0 bg-[#F7AFCB] rounded-[50px] z-0" />
+      {/* styled-jsx for softwares elastic animation */}
+      <style jsx>{`
+        .softwares-btn {
+          display: inline-block;
+          border-radius: 8px;
+          padding: 0;
+          line-height: 0;
+          will-change: transform, box-shadow;
+        }
 
-      {/* content */}
-      <div className="relative z-10 px-6 sm:px-8 lg:px-2 py-10">
-        <div className="w-full flex flex-col md:flex-row justify-center items-start gap-10">
-          {/* LEFT IMAGE */}
-          <div className="w-full flex justify-center">
-            <Image
-              src="/howto/phase3.png"
-              alt="Phase 3"
-              width={900}
-              height={1200}
-              className="w-full h-auto object-contain"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+        .softwares-btn:focus {
+          outline: 3px solid rgba(20, 24, 40, 0.12);
+          outline-offset: 4px;
+          border-radius: 10px;
+        }
 
+        /* target the real <img> rendered by next/image inside the button */
+        :global(.softwares-btn img) {
+          display: block;
+          width: 100%;
+          height: auto;
+          transform-origin: center;
+          /* elastic grow/shrink animation */
+          animation: elastic 1.8s cubic-bezier(0.2, 1, 0.3, 1) infinite;
+          transition: transform 160ms cubic-bezier(0.2, 1, 0.3, 1),
+            box-shadow 160ms cubic-bezier(0.2, 1, 0.3, 1);
+          cursor: pointer;
+          user-select: none;
+          will-change: transform, box-shadow;
+        }
 
+        /* elastic keyframes: quick grow, slight undershoot, settle */
+        @keyframes elastic {
+          0% { transform: scale(1); }
+          20% { transform: scale(1.08); }
+          45% { transform: scale(0.97); }
+          70% { transform: scale(1.04); }
+          100% { transform: scale(1); }
+        }
 
+        /* hover — stronger scale and pause animation for crispness */
+        .softwares-btn:hover,
+        .softwares-btn:focus {
+          transform: none;
+          animation-play-state: paused;
+          box-shadow: 0 12px 36px rgba(20, 24, 40, 0.12);
+        }
 
+        :global(.softwares-btn:hover img),
+        :global(.softwares-btn:focus img) {
+          transform: scale(1.06);
+          animation-play-state: paused;
+          box-shadow: 0 12px 36px rgba(20, 24, 40, 0.12);
+        }
+
+        /* quick press feedback */
+        .softwares-btn:active {
+          transform: none;
+          transition: transform 90ms;
+          box-shadow: 0 6px 18px rgba(20, 24, 40, 0.08);
+        }
+        :global(.softwares-btn:active img) {
+          transform: scale(0.96);
+        }
+
+        /* reduce motion for users who prefer reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+          :global(.softwares-btn img) {
+            animation: none !important;
+            transition: transform 120ms ease;
+          }
+        }
+      `}</style>
     </main>
   );
 }
