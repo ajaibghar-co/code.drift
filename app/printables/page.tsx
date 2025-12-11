@@ -234,7 +234,7 @@ export default function PrintablesPage() {
       <div
         className="min-h-screen bg-white flex items-center justify-center"
         style={{
-          background: '#F2F0EF',
+          background: '#F4E1B8',
           position: 'relative',
           overflow: 'hidden',
         }}
@@ -243,19 +243,35 @@ export default function PrintablesPage() {
           className="max-w-6xl w-full px-4 py-8 flex flex-col items-center"
           style={{ position: 'relative', zIndex: 2 }}
         >
-          {/* TITLE PNG */}
-          <header className="text-center mb-6">
-            <img
-              src="/shapes/printables.png"
-              alt="Printables"
-              style={{
-                display: 'block',
-                margin: '0 auto',
-                width: isMobile ? 260 : 420,
-                height: 'auto',
-              }}
-            />
-          </header>
+
+<header className="text-center mb-6" style={{ marginTop: isMobile ? -10 : -30 }}>
+  {/* MAIN HEADING */}
+  <img
+    src="/printables/heading.png"
+    alt="Printables"
+    style={{
+      display: 'block',
+      margin: '0 auto',
+      width: isMobile ? 240 : 400,
+      height: 'auto',
+    }}
+  />
+
+  {/* SUBHEADING */}
+  <img
+    src="/printables/subHead.png"
+    alt="Subheading"
+    style={{
+      display: 'block',
+      margin: isMobile ? '20px auto 0' : '32px auto 0',  // ← increased spacing
+      marginTop: '60px',
+      width: isMobile ? 200 : 330,
+      height: 'auto',
+    }}
+  />
+</header>
+
+
 
           <div
             style={{
