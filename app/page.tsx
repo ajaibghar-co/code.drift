@@ -51,7 +51,7 @@ const ELEMENTS: Sticker[] = [
   {
     src: '/landing/colab.png',
     alt: 'it’s usually a collaboration…',
-    style: { top: '95%', left: '94%', width: '32%' },
+    style: { top: '92%', left: '94%', width: '32%' },
   },
 
   // ⭐ PLAY BUTTON (GIF) — now clickable
