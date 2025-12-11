@@ -3,8 +3,13 @@
 
 import React from "react";
 import Image from "next/image";
+import { useState } from "react";
+import IrregularModal from "../components/Software";
 
 export default function HowToPlayPage() {
+
+  const [open, setOpen] = useState(false);
+
   return (
     <main className="min-h-screen bg-[#F4E1B8] flex flex-col items-center px-4 py-10">
       {/* TITLE — centered */}
@@ -82,13 +87,19 @@ export default function HowToPlayPage() {
                 height={120}
                 className="w-full h-auto"
               />
-              <Image
-                src="/howto/softwares.png"
-                alt="With Sonic Pi and p5.js"
-                width={210}
-                height={120}
-                className="w-full h-auto"
-              />
+              <button
+                onClick={() => setOpen(true)}   // <-- open modal
+                className="w-full h-auto focus:outline-none"
+              >
+                <Image
+                  src="/howto/softwares.png"
+                  alt="With Sonic Pi and p5.js"
+                  width={210}
+                  height={120}
+                  className="w-full h-auto cursor-pointer"
+                />
+              </button>
+              <IrregularModal open={open} onClose={() => setOpen(false)} />
             </div>
 
             {/* PRINT */}
