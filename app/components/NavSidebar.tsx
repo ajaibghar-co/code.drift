@@ -134,7 +134,7 @@ export default function NavSidebar() {
                     />
                   </Link>
 
-                  <Link href="/phase-3" onClick={() => setOpen(false)} className="block w-[200px]">
+                  <Link href="/potion-explosion" onClick={() => setOpen(false)} className="block w-[200px]">
                     <Image
                       src="/nav/phase3.png"
                       alt="Phase 3"
