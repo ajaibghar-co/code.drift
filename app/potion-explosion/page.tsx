@@ -92,8 +92,8 @@ export default function PotionExplosionsPage() {
     const extra = Math.floor(Math.random() * 6); // was 10 → fewer random jumps
     const totalSteps = baseSteps + extra;
   
-    const startDelay = 18;       // was ~30 → starts faster
-    const endDelay = 180;        // was ~300 → slows down faster
+    const startDelay = 10;       // was ~30 → starts faster
+    const endDelay = 100;        // was ~300 → slows down faster
     // -----------------------------
   
     const finalIndex = Math.floor(Math.random() * prompts.length);
@@ -246,7 +246,7 @@ export default function PotionExplosionsPage() {
                 className={`absolute top-1/2 left-1/2 w-[70%] -translate-x-1/2 -translate-y-1/2 text-center text-xl font-semibold blob-text ${
                   audioFlash ? "flash" : ""
                 }`}
-                style={{ color: "#95852F" }}
+                style={{ color: "#D4C36A" }}
                 aria-live="polite"
                 aria-atomic="true"
               >
