@@ -12,7 +12,7 @@ const inter = Inter({ subsets: ["latin"] });
 const TEXT_COLOR = '#0F172A';
 
 const WORDS = [
-  'Somehing edible',
+  'Something edible',
   'Sharp edges',
   'Repeating motif',
   'Patterns',
@@ -25,9 +25,9 @@ const WORDS = [
   'Street food',
   'Speakings in local dialect',
   'Everyday Sounds',
-  'Loud Sound/ visual',
+  'Loud Sound/Visual',
   'Textiles',
-  'Rhythmic sounds ',
+  'Rhythmic sounds',
   'Nature sounds',
   'Behind the scenes',
   'Typography',
@@ -52,7 +52,8 @@ const WORDS = [
   'Sound of Freedom',
   'Market scenes',
   'Places of play',
-  'Park'
+  'Park',
+  'Street signs'
 ];
 
 function hashStr(s: string) {
