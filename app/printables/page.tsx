@@ -1,4 +1,4 @@
-'use client';
+'use client'; 
 
 import React, {
   useCallback,
@@ -12,47 +12,47 @@ const inter = Inter({ subsets: ["latin"] });
 const TEXT_COLOR = '#0F172A';
 
 const WORDS = [
-'Somehing edible',
-'Sharp edges',
-'Repeating motif',
-'Patterns',
-'Shop signs ',
-'Building signs',
-'Movie Posters',
-'A distant sound',
-'A nearby sound',
-'Hawker sounds',
-'Street food',
-'Speakings in local dialect',
-'Everyday Sounds',
-'Loud Sound/ visual',
-'Textiles',
-'Rhythmic sounds ',
-'Nature sounds',
-'Behind the scenes',
-'Typography',
-'Wall paintings',
-'Architecture',
-'Houses',
-'Toys ',
-'Something uninteresting',
-'A pastel colored something',
-'Chalkboard signs',
-'Daily Special Boards',
-'Animals on the street',
-'Trees',
-'Vegetables and Fruits',
-'A clinking sound',
-'Drain Covers',
-'Clusters of Wires',
-'A cacaphony',
-'Graffiti',
-'Birds',
-'Source of Water',
-'Sound of Freedom',
-'Market scenes',
-'Places of play',
-'Park'
+  'Somehing edible',
+  'Sharp edges',
+  'Repeating motif',
+  'Patterns',
+  'Shop signs ',
+  'Building signs',
+  'Movie Posters',
+  'A distant sound',
+  'A nearby sound',
+  'Hawker sounds',
+  'Street food',
+  'Speakings in local dialect',
+  'Everyday Sounds',
+  'Loud Sound/ visual',
+  'Textiles',
+  'Rhythmic sounds ',
+  'Nature sounds',
+  'Behind the scenes',
+  'Typography',
+  'Wall paintings',
+  'Architecture',
+  'Houses',
+  'Toys ',
+  'Something uninteresting',
+  'A pastel colored something',
+  'Chalkboard signs',
+  'Daily Special Boards',
+  'Animals on the street',
+  'Trees',
+  'Vegetables and Fruits',
+  'A clinking sound',
+  'Drain Covers',
+  'Clusters of Wires',
+  'A cacaphony',
+  'Graffiti',
+  'Birds',
+  'Source of Water',
+  'Sound of Freedom',
+  'Market scenes',
+  'Places of play',
+  'Park'
 ];
 
 function hashStr(s: string) {
@@ -119,7 +119,16 @@ export default function PrintablesPage() {
   const cellW = Math.floor((containerWidth - gridGap * 2) / 3);
   const cellH = Math.round(cellW * 0.7);
 
+  // animation state flags
+  const [shuffleAnimating, setShuffleAnimating] = useState(false);
+  const [downloadAnimating, setDownloadAnimating] = useState(false);
+
   const shuffle = useCallback(() => {
+    // trigger animation
+    setShuffleAnimating(true);
+    // ensure animation flag resets even if something crashes
+    window.setTimeout(() => setShuffleAnimating(false), 600);
+
     const copy = [...WORDS];
     const out: string[] = [];
     for (let i = 0; i < 9 && copy.length > 0; i++) {
@@ -130,6 +139,10 @@ export default function PrintablesPage() {
   }, []);
 
   const handleDownload = useCallback(async () => {
+    // play animation immediately
+    setDownloadAnimating(true);
+    window.setTimeout(() => setDownloadAnimating(false), 700);
+
     if (!printRef.current) return;
 
     // dynamic imports so this still works in Next.js
@@ -173,6 +186,8 @@ export default function PrintablesPage() {
     width: cellW * 3 + gridGap * 2,
     padding: gridGap,
     boxSizing: 'border-box',
+    transform: "scale(0.90)", 
+    transformOrigin: "center center"
   };
 
   // styles used for the hidden print layout
@@ -196,6 +211,55 @@ export default function PrintablesPage() {
 
   return (
     <>
+      {/* local styles for button animations */}
+      <style jsx>{`
+        .btn {
+          transition: transform 180ms cubic-bezier(.2,.9,.3,1), filter 150ms;
+          will-change: transform;
+          cursor: pointer;
+          display: block;
+        }
+
+        .btn:hover {
+          transform: translateY(-6px) scale(1.03);
+        }
+
+        /* shuffle: short shake + spin effect */
+        @keyframes shuffle-shake {
+          0% { transform: rotate(0deg) scale(1); }
+          25% { transform: rotate(-12deg) scale(1.06); }
+          50% { transform: rotate(12deg) scale(1.04); }
+          75% { transform: rotate(-6deg) scale(1.02); }
+          100% { transform: rotate(0deg) scale(1); }
+        }
+
+        .shuffle-anim {
+          animation: shuffle-shake 560ms cubic-bezier(.2,.9,.3,1);
+        }
+
+        /* download: pop + stretch 'elastic' feel */
+        @keyframes download-pop {
+          0% { transform: scale(1); }
+          35% { transform: scale(1.18); }
+          65% { transform: scale(0.94); }
+          100% { transform: scale(1); }
+        }
+
+        .download-anim {
+          animation: download-pop 700ms cubic-bezier(.2,.9,.3,1);
+        }
+
+.btn:focus {
+  outline: none;
+}
+
+.btn:focus-visible {
+  outline: 3px solid rgba(0,0,0,0.12);
+  outline-offset: 4px;
+}
+
+      `}</style>
+
       {/* VISIBLE PAGE – unchanged layout */}
       <div
         className="min-h-screen flex items-center justify-center"
@@ -210,38 +274,38 @@ export default function PrintablesPage() {
           style={{ position: 'relative', zIndex: 2 }}
         >
 
-<header className="text-center mb-6" style={{ marginTop: isMobile ? -10 : -30 }}>
-  {/* MAIN HEADING */}
-  <img
-    src="/printables/heading.png"
-    alt="Printables"
-    style={{
-      display: 'block',
-      margin: '0 auto',
-      width: isMobile ? 240 : 400,
-      height: 'auto',
-    }}
-  />
+          <header className="text-center mb-6" style={{ marginTop: isMobile ? -10 : -10 }}>
+            {/* MAIN HEADING */}
+            <img
+              src="/printables/heading.png"
+              alt="Printables"
+              style={{
+                display: 'block',
+                margin: '0 auto',
+                width: isMobile ? 240 : 400,
+                height: 'auto',
+              }}
+            />
 
-  {/* SUBHEADING */}
-  <img
-    src="/printables/subHead.png"
-    alt="Subheading"
-    style={{
-      display: 'block',
-      margin: isMobile ? '20px auto 0' : '32px auto 0',  // ← increased spacing
-      marginTop: '60px',
-      width: isMobile ? 200 : 330,
-      height: 'auto',
-    }}
-  />
-</header>
+            {/* SUBHEADING */}
+            <img
+              src="/printables/subHead.png"
+              alt="Subheading"
+              style={{
+                display: 'block',
+                margin: isMobile ? '20px auto 0' : '32px auto 0',  
+                marginTop: '60px',
+                width: isMobile ? 200 : 330,
+                height: 'auto',
+              }}
+            />
+          </header>
 
 
 
           <div
             style={{
-              padding: isMobile ? 12 : 24,
+              padding: isMobile ? 12 : 18,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -316,7 +380,7 @@ export default function PrintablesPage() {
                 style={{
                   display: 'flex',
                   flexDirection: isMobile ? 'row' : 'column',
-                  gap: 12,
+                  gap: 32,
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}
@@ -326,11 +390,13 @@ export default function PrintablesPage() {
                   src="/shapes/shuffle.png"
                   alt="Shuffle"
                   onClick={shuffle}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') shuffle(); }}
+                  className={`btn ${shuffleAnimating ? 'shuffle-anim' : ''}`}
                   style={{
                     width: isMobile ? 52 : 170,
                     height: 'auto',
-                    cursor: 'pointer',
-                    display: 'block',
                   }}
                 />
 
@@ -339,11 +405,13 @@ export default function PrintablesPage() {
                   src="/shapes/download.png"
                   alt="Download"
                   onClick={handleDownload}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleDownload(); }}
+                  className={`btn ${downloadAnimating ? 'download-anim' : ''}`}
                   style={{
                     width: isMobile ? 52 : 170,
                     height: 'auto',
-                    cursor: 'pointer',
-                    display: 'block',
                   }}
                 />
               </div>
