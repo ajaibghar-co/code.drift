@@ -58,14 +58,14 @@ const ELEMENTS: Sticker[] = [
   {
     src: '/landing/play.gif',
     alt: 'play button',
-    style: { top: '88%', left: '50%', width: '40%' },
+    style: { top: '85%', left: '50%', width: '15%' },
     isGif: true,
   },
 
   {
     src: '/landing/drift.png',
     alt: 'drift, gather inspiration, and make cityscapes with code',
-    style: { top: '100%', left: '52%', width: '36%' },
+    style: { top: '105%', left: '52%', width: '36%' },
   },
 ];
 
