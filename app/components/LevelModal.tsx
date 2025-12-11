@@ -65,16 +65,7 @@ export default function LevelModal({
                 <div
                   key={`opt-${idx}`}
                 >
-                  <button
-                    className="modal-flip-icon"
-                    title="Flip preview"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onToggleFlip(idx);
-                    }}
-                  >
-                    ↺
-                  </button>
+     
 
                   <div onClick={() => onSelect(idx)} style={{ height: 160 }}>
                     <Card
