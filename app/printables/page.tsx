@@ -94,8 +94,8 @@ const PRINT_GRID_TOP = 420;
 const PRINT_GRID_RIGHT_MARGIN = 130;
 const PRINT_GRID_GAP = 24;
 
-// path to the extra PDF to merge (in public/printables)
-const EXTRA_PDF_PATH = '/printables/Card deck.pdf'; // <-- change filename
+// PRINT SCALE — only used for the PDF (hidden print layout)
+const PRINT_SCALE = 0.9;
 
 export default function PrintablesPage() {
   const [grid, setGrid] = useState<string[]>(() => WORDS.slice(0, 9));
@@ -133,11 +133,10 @@ export default function PrintablesPage() {
     if (!printRef.current) return;
 
     // dynamic imports so this still works in Next.js
-    const [{ default: html2canvas }, { jsPDF }, { PDFDocument }] =
+    const [{ default: html2canvas }, { jsPDF }] =
       await Promise.all([
         import('html2canvas'),
         import('jspdf'),
-        import('pdf-lib'),
       ]);
 
     // 1) capture the hidden print layout (PNG + bingo grid) as image
@@ -163,52 +162,8 @@ export default function PrintablesPage() {
 
     pdf.addImage(imgData, 'PNG', 0, y, imgWidth, imgHeight);
 
-    // get pdf bytes as ArrayBuffer
-    const bingoPdfBytes = pdf.output('arraybuffer') as ArrayBuffer;
-
-    // 3) load existing PDF from /public/printables and merge using pdf-lib
-    const extraRes = await fetch(EXTRA_PDF_PATH);
-    if (!extraRes.ok) {
-      console.error('Failed to fetch extra PDF:', extraRes.statusText);
-      // fall back to just downloading the bingo pdf
-      pdf.save('potions-bingo.pdf');
-      return;
-    }
-    const extraPdfBytes = await extraRes.arrayBuffer();
-
-    const mergedPdf = await PDFDocument.create();
-    const bingoDoc = await PDFDocument.load(bingoPdfBytes);
-    const extraDoc = await PDFDocument.load(extraPdfBytes);
-
-    // copy all pages from bingo pdf
-    const bingoPages = await mergedPdf.copyPages(
-      bingoDoc,
-      bingoDoc.getPageIndices()
-    );
-    bingoPages.forEach((p) => mergedPdf.addPage(p));
-
-    // copy all pages from extra pdf
-    const extraPages = await mergedPdf.copyPages(
-      extraDoc,
-      extraDoc.getPageIndices()
-    );
-    extraPages.forEach((p) => mergedPdf.addPage(p));
-
-    // 4) get merged pdf bytes and trigger download
-    const finalPdfBytes = new Uint8Array(await mergedPdf.save());
-
-    const blob = new Blob([finalPdfBytes], {
-      type: 'application/pdf',
-    });
-    const url = URL.createObjectURL(blob);
-
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'code-drift-printables.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    // directly trigger download of the bingo-only PDF
+    pdf.save('potion ingredient list.pdf');
   }, []);
 
   const gridStyle: React.CSSProperties = {
@@ -228,11 +183,22 @@ export default function PrintablesPage() {
   );
   const printCellH = Math.round(printCellW * 0.7);
 
+  // compute full (unscaled) print grid height so we can offset when scaling
+  const printGridHeight = printCellH * 3 + PRINT_GRID_GAP * 2;
+
+  // when we scale the grid about its top-left, it will shrink towards top-left.
+  // to keep the *center* of the scaled grid matching the center of the original,
+  // offset left/top by half the difference.
+  const adjustedPrintLeft =
+    PRINT_GRID_LEFT + (printGridWidth - printGridWidth * PRINT_SCALE) / 2;
+  const adjustedPrintTop =
+    PRINT_GRID_TOP + (printGridHeight - printGridHeight * PRINT_SCALE) / 2;
+
   return (
     <>
       {/* VISIBLE PAGE – unchanged layout */}
       <div
-        className="min-h-screen bg-white flex items-center justify-center"
+        className="min-h-screen flex items-center justify-center"
         style={{
           background: '#F4E1B8',
           position: 'relative',
@@ -386,7 +352,7 @@ export default function PrintablesPage() {
         </div>
       </div>
 
-      {/* HIDDEN PRINT LAYOUT – template PNG + bingo grid */}
+      {/* HIDDEN PRINT LAYOUT – template PNG + bingo grid (scaled only for PDF) */}
       <div
         ref={printRef}
         style={{
@@ -404,16 +370,21 @@ export default function PrintablesPage() {
           display: 'block',
         }}
       >
+        {/* wrapper is offset so the scaled inner grid stays centered */}
         <div
           style={{
             position: 'absolute',
-            left: PRINT_GRID_LEFT,
-            top: PRINT_GRID_TOP,
+            left: adjustedPrintLeft,
+            top: adjustedPrintTop,
             width: printGridWidth,
+            height: printGridHeight,
+            boxSizing: 'border-box',
+            // we scale the *inner* content from top-left, while having already offset
+            transform: `scale(${PRINT_SCALE})`,
+            transformOrigin: 'top left',
             display: 'grid',
             gridTemplateColumns: 'repeat(3, 1fr)',
             gap: PRINT_GRID_GAP,
-            boxSizing: 'border-box',
           }}
         >
           {grid.map((word, idx) => {
