@@ -191,7 +191,7 @@ export default function NavSidebar() {
     alt="Footer"
     width={900}
     height={300}
-    className="w-[95%] max-w-[400px] h-auto"
+    className="w-[85%] max-w-[400px] h-auto"
   />
 </div>
 
