@@ -140,45 +140,93 @@ export default function PrintablesPage() {
   }, []);
 
   const handleDownload = useCallback(async () => {
-    // play animation immediately
     setDownloadAnimating(true);
     window.setTimeout(() => setDownloadAnimating(false), 700);
-
+  
     if (!printRef.current) return;
-
-    // dynamic imports so this still works in Next.js
-    const [{ default: html2canvas }, { jsPDF }] =
-      await Promise.all([
-        import('html2canvas'),
-        import('jspdf'),
-      ]);
-
-    // 1) capture the hidden print layout (PNG + bingo grid) as image
+  
+    const [
+      { default: html2canvas },
+      { jsPDF },
+      { PDFDocument },
+    ] = await Promise.all([
+      import('html2canvas'),
+      import('jspdf'),
+      import('pdf-lib'),
+    ]);
+  
+    /* ------------------------------
+       1) Capture bingo as image
+    ------------------------------ */
     const canvas = await html2canvas(printRef.current, {
       useCORS: true,
     } as any);
-
+  
     const imgData = canvas.toDataURL('image/png');
-
-    // 2) create a one-page PDF from that image using jsPDF
-    const pdf = new jsPDF({
+  
+    /* ------------------------------
+       2) Create bingo PDF (jsPDF)
+    ------------------------------ */
+    const bingoPdf = new jsPDF({
       orientation: 'portrait',
       unit: 'pt',
       format: 'a4',
     });
-
-    const pageWidth = pdf.internal.pageSize.getWidth();
-    const pageHeight = pdf.internal.pageSize.getHeight();
-
+  
+    const pageWidth = bingoPdf.internal.pageSize.getWidth();
+    const pageHeight = bingoPdf.internal.pageSize.getHeight();
+  
     const imgWidth = pageWidth;
     const imgHeight = (canvas.height * imgWidth) / canvas.width;
     const y = (pageHeight - imgHeight) / 2;
-
-    pdf.addImage(imgData, 'PNG', 0, y, imgWidth, imgHeight);
-
-    // directly trigger download of the bingo-only PDF
-    pdf.save('potion ingredient list.pdf');
+  
+    bingoPdf.addImage(imgData, 'PNG', 0, y, imgWidth, imgHeight);
+  
+    // IMPORTANT: get bytes instead of saving
+    const bingoPdfBytes = bingoPdf.output('arraybuffer');
+  
+    /* ------------------------------
+       3) Load Card deck.pdf
+    ------------------------------ */
+    const deckResponse = await fetch('/printables/Card deck.pdf');
+    const deckBytes = await deckResponse.arrayBuffer();
+  
+    /* ------------------------------
+       4) Merge using pdf-lib
+    ------------------------------ */
+    const mergedPdf = await PDFDocument.create();
+  
+    const deckDoc = await PDFDocument.load(deckBytes);
+    const bingoDoc = await PDFDocument.load(bingoPdfBytes);
+  
+    const deckPages = await mergedPdf.copyPages(
+      deckDoc,
+      deckDoc.getPageIndices()
+    );
+    deckPages.forEach((p) => mergedPdf.addPage(p));
+  
+    const bingoPages = await mergedPdf.copyPages(
+      bingoDoc,
+      bingoDoc.getPageIndices()
+    );
+    bingoPages.forEach((p) => mergedPdf.addPage(p));
+  
+    const mergedBytes = await mergedPdf.save();
+  
+    /* ------------------------------
+       5) Download combined PDF
+    ------------------------------ */
+    const blob = new Blob([mergedBytes], { type: 'application/pdf' });
+    const url = URL.createObjectURL(blob);
+  
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'card-deck-with-bingo.pdf';
+    a.click();
+  
+    URL.revokeObjectURL(url);
   }, []);
+  
 
   const gridStyle: React.CSSProperties = {
     display: 'grid',
