@@ -199,25 +199,34 @@ export default function PrintablesPage() {
     const deckDoc = await PDFDocument.load(deckBytes);
     const bingoDoc = await PDFDocument.load(bingoPdfBytes);
   
+    const bingoPages = await mergedPdf.copyPages(
+      bingoDoc,
+      bingoDoc.getPageIndices()
+    );
+    bingoPages.forEach((p) => mergedPdf.addPage(p));
+    
     const deckPages = await mergedPdf.copyPages(
       deckDoc,
       deckDoc.getPageIndices()
     );
     deckPages.forEach((p) => mergedPdf.addPage(p));
   
-    const bingoPages = await mergedPdf.copyPages(
-      bingoDoc,
-      bingoDoc.getPageIndices()
-    );
-    bingoPages.forEach((p) => mergedPdf.addPage(p));
-  
-    const mergedBytes = await mergedPdf.save();
   
     /* ------------------------------
        5) Download combined PDF
     ------------------------------ */
-    const blob = new Blob([mergedBytes], { type: 'application/pdf' });
-    const url = URL.createObjectURL(blob);
+    const mergedBytes = await mergedPdf.save();
+
+    // Convert Uint8Array → ArrayBuffer (TS-safe)
+    const pdfArrayBuffer = mergedBytes.buffer.slice(
+      mergedBytes.byteOffset,
+      mergedBytes.byteOffset + mergedBytes.byteLength
+    );
+    
+    const blob = new Blob([pdfArrayBuffer as ArrayBuffer], {
+      type: 'application/pdf',
+    });
+        const url = URL.createObjectURL(blob);
   
     const a = document.createElement('a');
     a.href = url;
