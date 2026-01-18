@@ -22,3 +22,12 @@ body {
   background-position: 0 0, 10px 10px;
   opacity: 0.35;
 }
+
+/* Hide scrollbar but keep scroll */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
