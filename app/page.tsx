@@ -38,7 +38,7 @@ export default function AboutCodeDriftPage() {
       const nextScale = Math.min(
         vw / DESIGN_WIDTH,
         vh / DESIGN_HEIGHT,
-        1
+        vh < 1400 ? 0.9 : 1
       );
 
       setScale(nextScale);
