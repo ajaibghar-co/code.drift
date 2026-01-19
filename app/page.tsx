@@ -60,7 +60,7 @@ export default function AboutCodeDriftPage() {
           width: DESIGN_WIDTH,
           height: DESIGN_HEIGHT,
           transform: `scale(${scale})`,
-          transformOrigin: "top center",
+          transformOrigin: "center center",
         }}
       >
         <div className="relative w-full h-full">
