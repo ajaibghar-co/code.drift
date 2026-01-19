@@ -26,7 +26,7 @@ export default function NavSidebar() {
 
   return (
     <>
-      {/* Hamburger button */}
+      {/* Hamburger */}
       <button
         type="button"
         aria-label="Open navigation"
@@ -41,9 +41,7 @@ export default function NavSidebar() {
       <div
         onClick={() => setOpen(false)}
         className={`fixed inset-0 z-30 bg-black/70 transition-opacity duration-300 ${
-          open
-            ? "opacity-100 pointer-events-auto"
-            : "opacity-0 pointer-events-none"
+          open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       />
 
@@ -54,7 +52,7 @@ export default function NavSidebar() {
         }`}
       >
         <div className="relative h-full w-[85vw] sm:w-[420px] 3xl:w-[540px] flex flex-col">
-          {/* Background shape */}
+          {/* Background */}
           <Image
             src="/nav/shape.png"
             alt=""
@@ -73,7 +71,7 @@ export default function NavSidebar() {
               overflow-y-auto lg:overflow-y-hidden
             "
           >
-            {/* Close button */}
+            {/* Close */}
             <button
               aria-label="Close navigation"
               onClick={() => setOpen(false)}
@@ -93,134 +91,136 @@ export default function NavSidebar() {
               />
             </div>
 
-            {/* Gap below title */}
-            <div className="mt-6 sm:mt-8 lg:mt-6" />
+            {/* LARGE gap: title → about */}
+            <div className="mt-8 lg:mt-10" />
 
-            {/* NAVIGATION */}
-            <nav className="flex-1 flex flex-col justify-between">
-              {/* SET 1: ABOUT */}
-              <div className="mb-6">
+            {/* NAV */}
+            <nav className="flex flex-col">
+              {/* ABOUT */}
+              <Link
+                href="/"
+                onClick={() => setOpen(false)}
+                className="block w-[180px] sm:w-[210px] lg:w-[230px]"
+              >
+                <Image
+                  src="/nav/about.png"
+                  alt="About"
+                  width={460}
+                  height={120}
+                  className="w-full h-auto scale-[0.95] hover:scale-[0.98] transition"
+                />
+              </Link>
+
+              {/* MEDIUM gap: about → next main */}
+              <div className="mt-6" />
+
+              {/* GAME */}
+              <Link
+                href="/how-to-play"
+                onClick={() => setOpen(false)}
+                className="block w-[180px] sm:w-[210px] lg:w-[230px]"
+              >
+                <Image
+                  src="/nav/theGame.png"
+                  alt="The Game"
+                  width={460}
+                  height={120}
+                  className="w-full h-auto scale-[0.95] hover:scale-[0.98] transition"
+                />
+              </Link>
+
+              {/* SMALL gaps: main → subs & between subs */}
+              <div className="mt-3 space-y-2 pl-4 sm:pl-6 lg:pl-8">
                 <Link
-                  href="/"
+                  href="/printables"
                   onClick={() => setOpen(false)}
-                  className="block w-[180px] sm:w-[210px] lg:w-[230px]"
+                  className="block w-[160px] sm:w-[180px] lg:w-[200px]"
                 >
                   <Image
-                    src="/nav/about.png"
-                    alt="About"
-                    width={460}
-                    height={120}
+                    src="/nav/phase1.png"
+                    alt="Phase 1"
+                    width={400}
+                    height={100}
+                    className="w-full h-auto scale-[0.95] hover:scale-[0.98] transition"
+                  />
+                </Link>
+
+                <Link
+                  href="/collaborate"
+                  onClick={() => setOpen(false)}
+                  className="block w-[160px] sm:w-[180px] lg:w-[200px]"
+                >
+                  <Image
+                    src="/nav/phase2.png"
+                    alt="Phase 2"
+                    width={400}
+                    height={100}
+                    className="w-full h-auto scale-[0.95] hover:scale-[0.98] transition"
+                  />
+                </Link>
+
+                <Link
+                  href="/potion-explosion"
+                  onClick={() => setOpen(false)}
+                  className="block w-[160px] sm:w-[180px] lg:w-[200px]"
+                >
+                  <Image
+                    src="/nav/phase3.png"
+                    alt="Phase 3"
+                    width={400}
+                    height={100}
                     className="w-full h-auto scale-[0.95] hover:scale-[0.98] transition"
                   />
                 </Link>
               </div>
 
-              {/* SET 2: GAME + PHASES */}
-              <div className="mb-6 space-y-3">
+              {/* MEDIUM gap: last sub → next main */}
+              <div className="mt-6" />
+
+              {/* EXTRAS */}
+              <Link
+                href="/extras"
+                onClick={() => setOpen(false)}
+                className="block w-[180px] sm:w-[210px] lg:w-[230px]"
+              >
+                <Image
+                  src="/nav/extras.png"
+                  alt="Extras"
+                  width={460}
+                  height={120}
+                  className="w-full h-auto scale-[0.95] hover:scale-[0.98] transition"
+                />
+              </Link>
+
+              {/* SMALL gaps */}
+              <div className="mt-3 space-y-2 pl-4 sm:pl-6 lg:pl-8">
                 <Link
-                  href="/how-to-play"
+                  href="/resources"
                   onClick={() => setOpen(false)}
-                  className="block w-[180px] sm:w-[210px] lg:w-[230px]"
+                  className="block w-[160px] sm:w-[180px] lg:w-[200px]"
                 >
                   <Image
-                    src="/nav/theGame.png"
-                    alt="The Game"
-                    width={460}
-                    height={120}
+                    src="/nav/resources.png"
+                    alt="Resources"
+                    width={400}
+                    height={100}
                     className="w-full h-auto scale-[0.95] hover:scale-[0.98] transition"
                   />
                 </Link>
 
-                <div className="space-y-2 pl-4 sm:pl-6 lg:pl-8">
-                  <Link
-                    href="/printables"
-                    onClick={() => setOpen(false)}
-                    className="block w-[160px] sm:w-[180px] lg:w-[200px]"
-                  >
-                    <Image
-                      src="/nav/phase1.png"
-                      alt="Phase 1"
-                      width={400}
-                      height={100}
-                      className="w-full h-auto scale-[0.95] hover:scale-[0.98] transition"
-                    />
-                  </Link>
-
-                  <Link
-                    href="/collaborate"
-                    onClick={() => setOpen(false)}
-                    className="block w-[160px] sm:w-[180px] lg:w-[200px]"
-                  >
-                    <Image
-                      src="/nav/phase2.png"
-                      alt="Phase 2"
-                      width={400}
-                      height={100}
-                      className="w-full h-auto scale-[0.95] hover:scale-[0.98] transition"
-                    />
-                  </Link>
-
-                  <Link
-                    href="/potion-explosion"
-                    onClick={() => setOpen(false)}
-                    className="block w-[160px] sm:w-[180px] lg:w-[200px]"
-                  >
-                    <Image
-                      src="/nav/phase3.png"
-                      alt="Phase 3"
-                      width={400}
-                      height={100}
-                      className="w-full h-auto scale-[0.95] hover:scale-[0.98] transition"
-                    />
-                  </Link>
-                </div>
-              </div>
-
-              {/* SET 3: EXTRAS */}
-              <div className="space-y-3">
                 <Link
-                  href="/extras"
+                  href="/diy-kits"
                   onClick={() => setOpen(false)}
-                  className="block w-[180px] sm:w-[210px] lg:w-[230px]"
+                  className="block w-[160px] sm:w-[180px] lg:w-[200px]"
                 >
                   <Image
-                    src="/nav/extras.png"
-                    alt="Extras"
-                    width={460}
-                    height={120}
+                    src="/nav/diy.png"
+                    alt="DIY Kits"
+                    width={400}
+                    height={100}
                     className="w-full h-auto scale-[0.95] hover:scale-[0.98] transition"
                   />
                 </Link>
-
-                <div className="space-y-2 pl-4 sm:pl-6 lg:pl-8">
-                  <Link
-                    href="/resources"
-                    onClick={() => setOpen(false)}
-                    className="block w-[160px] sm:w-[180px] lg:w-[200px]"
-                  >
-                    <Image
-                      src="/nav/resources.png"
-                      alt="Resources"
-                      width={400}
-                      height={100}
-                      className="w-full h-auto scale-[0.95] hover:scale-[0.98] transition"
-                    />
-                  </Link>
-
-                  <Link
-                    href="/diy-kits"
-                    onClick={() => setOpen(false)}
-                    className="block w-[160px] sm:w-[180px] lg:w-[200px]"
-                  >
-                    <Image
-                      src="/nav/diy.png"
-                      alt="DIY Kits"
-                      width={400}
-                      height={100}
-                      className="w-full h-auto scale-[0.95] hover:scale-[0.98] transition"
-                    />
-                  </Link>
-                </div>
               </div>
             </nav>
 
