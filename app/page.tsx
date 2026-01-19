@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -28,29 +28,41 @@ const ELEMENTS: Sticker[] = [
 ];
 
 export default function AboutCodeDriftPage() {
+  const [scale, setScale] = useState(1);
+
+  useEffect(() => {
+    function updateScale() {
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+
+      const nextScale = Math.min(
+        vw / DESIGN_WIDTH,
+        vh / DESIGN_HEIGHT,
+        1
+      );
+
+      setScale(nextScale);
+    }
+
+    updateScale();
+    window.addEventListener("resize", updateScale);
+    return () => window.removeEventListener("resize", updateScale);
+  }, []);
+
   return (
     <main className="min-h-screen bg-[#F4E1B8] flex items-center justify-center overflow-hidden">
       <h1 className="sr-only">About Code Drift</h1>
 
-      {/* VIEWPORT SCALE CONTAINER */}
+      {/* SCALE CONTAINER */}
       <div
         className="relative"
         style={{
           width: DESIGN_WIDTH,
           height: DESIGN_HEIGHT,
-          transform: `
-            scale(
-              min(
-                ${window.innerWidth} / ${DESIGN_WIDTH},
-                ${window.innerHeight} / ${DESIGN_HEIGHT},
-                1
-              )
-            )
-          `,
+          transform: `scale(${scale})`,
           transformOrigin: "top center",
         }}
       >
-        {/* CANVAS */}
         <div className="relative w-full h-full">
           {ELEMENTS.map((el, idx) => {
             const content = el.isGif ? (
