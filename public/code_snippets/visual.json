@@ -63,13 +63,14 @@
   },
   {
     "id": 6,
-    "title": "Random",
+    "title": "Random Position",
     "level": 2,
-    "description": "Use random function to introduce some chaos",
+    "description": "Use the random() function to display an image at a random position on the canvas.",
     "code": {
-      "global": "let palette = [\n  \"#EF476F\",\n  \"#FFD166\",\n  \"#06D6A0\",\n  \"#118AB2\",\n  \"#073B4C\"\n];",
-      "setup": "function setup() {\n  createCanvas(600, 400);\n  noStroke();\n}",
-      "draw": "function draw() {\n  // Random size\n  let r = random(1, 100);\n\n  // Random color from palette\n  fill(random(palette));\n\n  // Draw circle at mouse position\n  circle(mouseX, mouseY, r);\n}"
+      "global": "// use the random function to display an image at a random place on the canvas\nlet img;",
+      "preload": "function preload() {\n  img = loadImage(\"blue.png\"); // upload your image and change image name here\n}",
+      "setup": "function setup() {\n  createCanvas(400, 400);\n  // reduce frameRate to see the random effect better. Try increasing / decreasing the value of frameRate()\n  frameRate(23);\n}",
+      "draw": "function draw() {\n  background(220);\n  // setting a random value for x\n  let x = random(0, 350);\n\n  img.resize(120, 0); // resizing the image without changing its aspect ratio. See what happens if neither of the values are zero.\n\n  // drawing the image at a random x position\n  image(img, x, 200);\n}"
     }
   },
   {
@@ -83,5 +84,103 @@
       "setup": "function setup() {\n  createCanvas(600, 400);\n}",
       "draw": "function draw() {\n  background(220);\n\n  // draw the image using the variable\n  image(img, imgX, 100, 200, 200);\n\n  // incrementing the value of the variable\n  imgX = imgX + 1; // try a bigger number\n}"
     }
-  } 
+  },
+  {
+    "id": 8,
+    "title": "Centering Images",
+    "level": 2,
+    "description": "Draw an image from its center and position it dynamically using the canvas width and height.",
+    "code": {
+      "global": "let img;",
+      "preload": "function preload() {\n  // upload and preload the image you want to use\n  img = loadImage(\"flowers.png\"); // change image name within quotes\n}",
+      "setup": "function setup() {\n  createCanvas(400, 400); // try changing canvas size and see what happens\n  // images by default are drawn from top-left corner. Use this function to make sure the images are drawn from the center outwards\n  imageMode(CENTER); // remove this line and see what happens\n}",
+      "draw": "function draw() {\n  // change background to black\n  background(\"black\");\n\n  img.resize(200, 0); // resize image to fit inside the canvas\n\n  // draw an image at the center of the canvas\n  image(img, width / 2, height / 2); // notice here that we are using width/2 instead of 200 so that when you change canvas size, you don't have to change your code.\n\n  // try to draw other shapes at the center of the canvas\n\n  // add a filter to your image!\n  img.filter(POSTERIZE, 5);\n}"
+    }
+  },
+  {
+    "id": 9,
+    "title": "Webcam",
+    "level": 2,
+    "description": "Capture live video from the webcam and display it on the canvas using createCapture().",
+    "code": {
+      "global": "let cam; // using a variable called cam to store webcam feed",
+      "preload": "",
+      "setup": "function setup() {\n  createCanvas(640, 480);\n  cam = createCapture(VIDEO); // createCapture function takes live webcam feed\n  cam.hide();\n}",
+      "draw": "function draw() {\n  background(220);\n\n  // draw the live webcam feed into an image to display it on the canvas\n  image(cam, 0, 0);\n}"
+    }
+  },
+  {
+    "id": 10,
+    "title": "Drawing Over an Image",
+    "level": 2,
+    "description": "Draw an image once in setup() and use mouse interaction to draw on top of it.",
+    "code": {
+      "global": "let img;",
+      "preload": "function preload() {\n  img = loadImage(\"animlas.png\");\n}",
+      "setup": "function setup() {\n  createCanvas(400, 400);\n  // draw the image in setup so that it is drawn only once and then you can see your drawing lines on top of it.\n  img.resize(400, 0);\n  image(img, 0, 0);\n}",
+      "draw": "function draw() {\n  // background(220);\n  // what happens if you draw the background or the image inside draw? Try it!\n}",
+      "mouseDragged": "function mouseDragged() {\n  stroke(\"red\"); // try changing stroke color\n  line(pmouseX, pmouseY, mouseX, mouseY); // draws a line from previous mouse position to current mouse position\n}"
+    }
+  },
+  {
+    "id": 11,
+    "title": "Using Microphone Input",
+    "level": 3,
+    "description": "Use live microphone input to control visuals by mapping mic volume to shape size.",
+    "code": {
+      "global": "/* We will initialise the mic from our computer to work in the sketch. This will allow us to use mic levels and mic inputs to change our graphics.\n\nAdd a variable called \"mic\" and initialize it in the setup. */\n\nlet mic;",
+      "preload": "",
+      "setup": "function setup() {\n  createCanvas(400, 400);\n  mic = new p5.AudioIn();\n  mic.start();\n}",
+      "draw": "function draw() {\n  background(\"pink\");\n  // circle(100, 200, 100);\n\n  micLevel = mic.getLevel();\n\n  // checks the value of micLevel and prints it in the console so you know how much to multiply it by to use it as a value in your sketch\n  // console.log(micLevel);\n\n  // use micLevel to change the size of the circle\n  circle(width / 2, height / 2, 800 * micLevel); // if you don't see a circle when you run your sketch, check if p5 has microphone permissions, and then try increasing the number being multiplied by micLevel\n}\n\n// can you try to change the size of an image based on micLevel?"
+    }
+  },
+  {
+    "id": 12,
+    "title": "Mic-Controlled Text",
+    "level": 3,
+    "description": "Use live microphone input to dynamically control the size of text on the canvas.",
+    "code": {
+      "global": "/* We will initialise the mic from our computer to work in the sketch. This will allow us to use mic levels and mic inputs to change our graphics.\n\nAdd a variable called \"mic\" and initialize it in the setup. */\n\nlet mic, micLevel;",
+      "preload": "",
+      "setup": "function setup() {\n  createCanvas(400, 400);\n  mic = new p5.AudioIn();\n  mic.start();\n}",
+      "draw": "function draw() {\n  background(0);\n\n  micLevel = mic.getLevel();\n  // checks the value of micLevel and prints it in the console so you know how much to multiply it by to use it as a value in your sketch\n  console.log(micLevel);\n\n  // change text color to pink\n  fill(\"pink\");\n  textSize(30 + micLevel * 2000); // use micLevel to change the size of the text. Snap your fingers and see what happens to the text!\n  textAlign(CENTER);\n  text(\"CODE DRIFT\", width / 2, height / 3, 20);\n}\n\n// try to add an image in the background of this sketch!"
+    }
+  },
+  {
+    "id": 13,
+    "title": "Animating with frameCount",
+    "level": 3,
+    "description": "Use the built-in frameCount variable and the modulo operator to create looping animations over time.",
+    "code": {
+      "global": "// level up animation of a circle using inbuilt variable called frameCount",
+      "preload": "",
+      "setup": "function setup() {\n  createCanvas(400, 400);\n}",
+      "draw": "function draw() {\n  // background has alpha value of 50 which means you see a streak of things moving\n  background(0, 0, 255, 50); // try changing the last value and see what happens\n\n  // frameCount is a variable in p5 that keeps count of how many frames are drawn since the sketch started running. It is a useful variable to use to change things relative to time\n\n  // here we are using the modulo operator (%) which outputs the remainder of the division of two values. In this case, frameCount and 400.\n  // This means that in this example the value of 'frameCount % 400' cycles between 0 and 400\n\n  // noStroke(); // draw circle without black stroke\n  circle(200, frameCount % 400, 30);\n\n  textSize(30);\n  fill(\"white\");\n  text(\"code drift game is so cool\", frameCount % 400, 200);\n\n  // console.log(frameCount % 400);\n}\n\n// can you make images loop like the text and the circle in different directions?"
+    }
+  },
+  {
+    "id": 14,
+    "title": "Mic & Webcam in 3D",
+    "level": 3,
+    "description": "Combine microphone input and live webcam video in a 3D (WEBGL) sketch to control a rotating textured box.",
+    "code": {
+      "global": "/* We will initialise the mic from our computer to work in the sketch. This will allow us to use mic levels and mic inputs to change our graphics.\n\nAdd a variable called \"mic\" and initialize it in the setup. */\n\nlet mic,\n  cam,\n  y = 0;",
+      "preload": "",
+      "setup": "function setup() {\n  createCanvas(400, 400, WEBGL); // specify WEBGL in canvas parameters when you want to use a 3D canvas\n  mic = new p5.AudioIn();\n  mic.start();\n\n  cam = createCapture(VIDEO); // use cam to store webcam feed\n  cam.hide();\n\n  angleMode(DEGREES); // change angle mode from radians to Degrees\n}",
+      "draw": "function draw() {\n  background(\"purple\");\n\n  // allows you to move your box around by clicking and dragging with mouse\n  orbitControl();\n  \n  micLevel = mic.getLevel();\n  // checks the value of micLevel and prints it in the console so you know how much to multiply it by to use it as a value in your sketch\n  console.log(micLevel);\n\n  rotateY(y); // rotate y by y angle\n\n  // use cam as texture for the box\n  texture(cam);\n  // use micLevel value to change size of the box\n  box(30 + 4000 * micLevel); // if you don't see a box when you run your sketch, check if p5 has microphone permissions, and then try increasing the number being multiplied by micLevel\n\n  // change value of y to gradually change rotation angle\n  y = y + 1;\n}"
+    }
+  },
+  {
+    "id": 15,
+    "title": "Using If Conditions",
+    "level": 2,
+    "description": "Use an if–else condition to change visuals based on the mouse position on the canvas.",
+    "code": {
+      "global": "// using if condition to draw a red circle on the left half of the canvas and blue circle on the right half of the canvas",
+      "preload": "",
+      "setup": "function setup() {\n  createCanvas(400, 400);\n}",
+      "draw": "function draw() {\n  background(220);\n\n  // using the if condition to check if mouseX position is on the right half or left half of the canvas\n  if (mouseX > 200) {\n    fill(\"blue\");\n  } else {\n    fill(\"red\");\n  }\n  ellipse(mouseX, mouseY, 50);\n}"
+    }
+  }
+  
 ]
