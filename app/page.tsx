@@ -4,6 +4,9 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+const DESIGN_WIDTH = 1200;
+const DESIGN_HEIGHT = 700;
+
 type Sticker = {
   src: string;
   alt: string;
@@ -26,57 +29,62 @@ const ELEMENTS: Sticker[] = [
 
 export default function AboutCodeDriftPage() {
   return (
-    <main className="min-h-screen bg-[#F4E1B8] flex items-center justify-center px-4 py-10">
-      <div className="w-full max-w-7xl mx-auto">
-        <h1 className="sr-only">About Code Drift</h1>
+    <main className="min-h-screen bg-[#F4E1B8] flex items-center justify-center overflow-hidden">
+      <h1 className="sr-only">About Code Drift</h1>
 
-        {/* STAGE */}
-        <div className="relative w-full aspect-[16/9] flex items-center justify-center">
-          {/* SCALE WRAPPER */}
-          <div
-            className="
-              relative w-full h-full
-              origin-top
-              scale-[clamp(0.75,1vw+0.6,1)]
-            "
-          >
-            {ELEMENTS.map((el, idx) => {
-              const content = el.isGif ? (
-                <img
-                  src={el.src}
-                  alt={el.alt}
-                  className="w-full h-auto object-contain cursor-pointer"
-                />
-              ) : (
-                <Image
-                  src={el.src}
-                  alt={el.alt}
-                  sizes="(min-width: 1280px) 1200px, 100vw"
-                  width={1200}
-                  height={800}
-                  className="w-full h-auto object-contain"
-                  priority={idx === 0}
-                />
-              );
+      {/* VIEWPORT SCALE CONTAINER */}
+      <div
+        className="relative"
+        style={{
+          width: DESIGN_WIDTH,
+          height: DESIGN_HEIGHT,
+          transform: `
+            scale(
+              min(
+                ${window.innerWidth} / ${DESIGN_WIDTH},
+                ${window.innerHeight} / ${DESIGN_HEIGHT},
+                1
+              )
+            )
+          `,
+          transformOrigin: "top center",
+        }}
+      >
+        {/* CANVAS */}
+        <div className="relative w-full h-full">
+          {ELEMENTS.map((el, idx) => {
+            const content = el.isGif ? (
+              <img
+                src={el.src}
+                alt={el.alt}
+                className="w-full h-auto object-contain cursor-pointer"
+              />
+            ) : (
+              <Image
+                src={el.src}
+                alt={el.alt}
+                width={1200}
+                height={800}
+                className="w-full h-auto object-contain"
+                priority={idx === 0}
+              />
+            );
 
-              return (
-                <div
-                  key={idx}
-                  className="absolute"
-                  style={{
-                    top: el.style.top,
-                    left: el.style.left,
-                    width: el.style.width,
-                    transform: "translate(-50%, -50%)",
-                  }}
-                >
-                  <div className="relative w-full h-auto">
-                    {el.isGif ? <Link href="/how-to-play">{content}</Link> : content}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+            return (
+              <div
+                key={idx}
+                className="absolute"
+                style={{
+                  top: el.style.top,
+                  left: el.style.left,
+                  width: el.style.width,
+                  transform: "translate(-50%, -50%)",
+                }}
+              >
+                {el.isGif ? <Link href="/how-to-play">{content}</Link> : content}
+              </div>
+            );
+          })}
         </div>
       </div>
     </main>
