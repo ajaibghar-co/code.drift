@@ -195,7 +195,9 @@ export default function NavSidebar() {
               {/* SMALL gaps */}
               <div className="mt-3 space-y-2 pl-4 sm:pl-6 lg:pl-8">
                 <Link
-                  href="/resources"
+                  href="https://docs.google.com/document/d/1H_nTvl0fe-At1COqu9F7zqz3crbdF5W5FxLiSAbdvdA/edit?usp=sharing"
+                  target="_blank" 
+                  rel="noopener noreferrer"
                   onClick={() => setOpen(false)}
                   className="block w-[160px] sm:w-[180px] lg:w-[200px]"
                 >
