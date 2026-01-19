@@ -11,7 +11,7 @@
     },
     {
       "id": 2,
-      "title": "Ring Note Loop",
+      "title": "Notes",
       "level": 1,
       "description": "A live loop that plays a fixed note and then a ring of notes.",
       "code": {
@@ -21,7 +21,7 @@
     },
     {
       "id": 3,
-      "title": "TB303 Synth Loop",
+      "title": "Synth",
       "level": 1,
       "description": "A simple arpeggio loop using the tb303 synth.",
       "code": {
@@ -33,7 +33,7 @@
     },
     {
       "id": 4,
-      "title": "Hoover Scale Loop",
+      "title": "Scale",
       "level": 1,
       "description": "A looping major pentatonic pattern using the hoover synth.",
       "code": {
@@ -54,7 +54,86 @@
         "draw": "",
         "main": "use_synth :pluck\nloop do\n  #play chord(:E3, :minor) #play a chord\n  #sleep 0.5\n\n  play_pattern_timed chord(:E3, :m7), 0.25 # play arpeggio\n  sleep 0.25\nend"
       }
+    },
+    {
+      "id": 6,
+      "title": "Reverse",
+      "level": 2,
+      "description": "A synced Amen break loop with adjustable playback direction and finish point.",
+      "code": {
+        "global": "",
+        "setup": "",
+        "draw": "",
+        "main": "live_loop :rev do\n  # change rate: 1 to rate: -1\n  # change finish: 0.5 to 1\n  sample :loop_amen, rate: 1, finish: 0.5, amp: 1\n  sleep 2\nend"
+      }
+    },
+    {
+      "id": 7,
+      "title": "Randomize",
+      "level": 2,
+      "description": "A looping cowbell rhythm with random amplitude and timing.",
+      "code": {
+        "global": "",
+        "setup": "",
+        "draw": "",
+        "main": "live_loop :random_rhythm do\n  # try different values in the amp: rrand() & sleep rrand()\n  sample :drum_cowbell, amp: rrand(0.2, 0.6)\n  sleep rrand(0.1, 0.5)\nend"
+      }
+    },
+    {
+      "id": 8,
+      "title": "Trim",
+      "level": 2,
+      "description": "An Amen break loop trimmed by adjusting the start and finish values.",
+      "code": {
+        "global": "",
+        "setup": "",
+        "draw": "",
+        "main": "live_loop :testtrim do\n  # change start and finish values to trim the sample\n  sample :loop_amen, start: 0.3, finish: 0.5, amp: 1\n  sleep 2\nend"
+      }
+    },
+    {
+      "id": 9,
+      "title": "Echo Effect Bell Loop",
+      "level": 3,
+      "description": "A looping bell melody processed with an echo effect whose strength can be adjusted.",
+      "code": {
+        "global": "",
+        "setup": "",
+        "draw": "",
+        "main": "# change the value of mix: 0.2 to anything between 0-1 to change the effect strength\nlive_loop :echotest do\n  with_fx :echo, phase: 0.5, mix: 0.1 do\n    use_synth :pretty_bell\n    play :c4, release: 1\n    sleep 0.5\n    play :e4, release: 1\n    sleep 0.5\n    play :d4, release: 1\n    sleep 0.5\n  end\nend"
+      }
+    },
+    {
+      "id": 10,
+      "title": "Pan",
+      "level": 3,
+      "description": "A simple loop demonstrating stereo panning from left to center to right.",
+      "code": {
+        "global": "",
+        "setup": "",
+        "draw": "",
+        "main": "# pan\nlive_loop :paning do\n  # replace all the pan values with -1, then try 0 and finally try 1.\n  play 50, pan: -1\n  sleep 0.5\n  play 60, pan: 0\n  sleep 0.5\n  play 70, pan: 1\n  sleep 0.5\nend"
+      }
+    },
+    {
+      "id": 11,
+      "title": "Reverb",
+      "level": 3,
+      "description": "A fast bell scale processed with reverb, demonstrating how room size affects space.",
+      "code": {
+        "global": "",
+        "setup": "",
+        "draw": "",
+        "main": "# change the value of room to anything between 0-1 to change the apparent room size\nlive_loop :echotest do\n  with_fx :reverb, room: 0.5, mix: 0.5 do\n    use_synth :pretty_bell\n    play_pattern_timed scale(:c3, :major, num_octaves: 3), 0.125, release: 0.1\n    sleep 0.5\n  end\nend"
+      }
     }
+    
+    
+    
+    
+    
+    
+    
     
     
     
