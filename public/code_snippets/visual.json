@@ -85,18 +85,6 @@
     }
   },
   {
-    "id": 7,
-    "title": "Variables",
-    "level": 2,
-    "description": "Use a variable to control the movement of an image.",
-    "code": {
-      "global": "let img;\nlet imgX = 0;",
-      "preload": "function preload() {\n  img = loadImage(\"myImage.jpg\"); // Replace with your image file\n}",
-      "setup": "function setup() {\n  createCanvas(600, 400);\n}",
-      "draw": "function draw() {\n  background(220);\n\n  // draw the image using the variable\n  image(img, imgX, 100, 200, 200);\n\n  // incrementing the value of the variable\n  imgX = imgX + 1; // try a bigger number\n}"
-    }
-  },
-  {
     "id": 8,
     "title": "Centering Images",
     "level": 2,
