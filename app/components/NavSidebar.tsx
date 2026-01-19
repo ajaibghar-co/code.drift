@@ -34,12 +34,7 @@ export default function NavSidebar() {
         onClick={() => setOpen((o) => !o)}
         className="fixed z-40 top-4 left-4 md:top-6 md:left-6 rounded-md hover:bg-[#D4C36A] transition"
       >
-        <Image
-          src="/nav/menu.gif"
-          alt="Menu"
-          width={65}
-          height={100}
-        />
+        <Image src="/nav/menu.gif" alt="Menu" width={65} height={100} />
       </button>
 
       {/* Overlay */}
@@ -69,19 +64,26 @@ export default function NavSidebar() {
           />
 
           {/* CONTENT */}
-          <div className="relative flex flex-col h-full pt-10 px-6 sm:px-10 lg:px-20 pb-6 overflow-y-auto overscroll-contain no-scrollbar">
-
+          <div
+            className="
+              relative flex flex-col h-full
+              pt-6 lg:pt-4
+              px-6 sm:px-10 lg:px-20
+              pb-4
+              overflow-y-auto lg:overflow-y-hidden
+            "
+          >
             {/* Close button */}
             <button
               aria-label="Close navigation"
               onClick={() => setOpen(false)}
-              className="absolute top-4 right-4 text-sm text-[#7b1b3a] bg-[#f7cfae] rounded-full px-3 py-1 shadow-md hover:brightness-95"
+              className="absolute top-3 right-3 text-sm text-[#7b1b3a] bg-[#f7cfae] rounded-full px-3 py-1 shadow-md hover:brightness-95"
             >
               ✕
             </button>
 
             {/* TITLE */}
-            <div className="w-[180px] sm:w-[220px] lg:w-[240px] mx-auto">
+            <div className="w-[160px] sm:w-[200px] lg:w-[200px] mx-auto">
               <Image
                 src="/nav/title.png"
                 alt="Code Drift"
@@ -92,13 +94,12 @@ export default function NavSidebar() {
             </div>
 
             {/* Gap below title */}
-            <div className="mt-8 sm:mt-12 lg:mt-16" />
+            <div className="mt-6 sm:mt-8 lg:mt-6" />
 
             {/* NAVIGATION */}
-            <nav className="flex-1 flex flex-col">
-
+            <nav className="flex-1 flex flex-col justify-between">
               {/* SET 1: ABOUT */}
-              <div className="mb-10">
+              <div className="mb-6">
                 <Link
                   href="/"
                   onClick={() => setOpen(false)}
@@ -109,14 +110,13 @@ export default function NavSidebar() {
                     alt="About"
                     width={460}
                     height={120}
-                    className="w-full h-auto hover:scale-[1.02] transition"
+                    className="w-full h-auto scale-[0.95] hover:scale-[0.98] transition"
                   />
                 </Link>
               </div>
 
               {/* SET 2: GAME + PHASES */}
-              <div className="mb-10 space-y-4">
-                {/* Main */}
+              <div className="mb-6 space-y-3">
                 <Link
                   href="/how-to-play"
                   onClick={() => setOpen(false)}
@@ -127,12 +127,11 @@ export default function NavSidebar() {
                     alt="The Game"
                     width={460}
                     height={120}
-                    className="w-full h-auto hover:scale-[1.02] transition"
+                    className="w-full h-auto scale-[0.95] hover:scale-[0.98] transition"
                   />
                 </Link>
 
-                {/* Sub-buttons */}
-                <div className="space-y-3 pl-4 sm:pl-6 lg:pl-8">
+                <div className="space-y-2 pl-4 sm:pl-6 lg:pl-8">
                   <Link
                     href="/printables"
                     onClick={() => setOpen(false)}
@@ -143,7 +142,7 @@ export default function NavSidebar() {
                       alt="Phase 1"
                       width={400}
                       height={100}
-                      className="w-full h-auto hover:scale-[1.02] transition"
+                      className="w-full h-auto scale-[0.95] hover:scale-[0.98] transition"
                     />
                   </Link>
 
@@ -157,7 +156,7 @@ export default function NavSidebar() {
                       alt="Phase 2"
                       width={400}
                       height={100}
-                      className="w-full h-auto hover:scale-[1.02] transition"
+                      className="w-full h-auto scale-[0.95] hover:scale-[0.98] transition"
                     />
                   </Link>
 
@@ -171,14 +170,14 @@ export default function NavSidebar() {
                       alt="Phase 3"
                       width={400}
                       height={100}
-                      className="w-full h-auto hover:scale-[1.02] transition"
+                      className="w-full h-auto scale-[0.95] hover:scale-[0.98] transition"
                     />
                   </Link>
                 </div>
               </div>
 
               {/* SET 3: EXTRAS */}
-              <div className="space-y-4 mb-6">
+              <div className="space-y-3">
                 <Link
                   href="/extras"
                   onClick={() => setOpen(false)}
@@ -189,11 +188,11 @@ export default function NavSidebar() {
                     alt="Extras"
                     width={460}
                     height={120}
-                    className="w-full h-auto hover:scale-[1.02] transition"
+                    className="w-full h-auto scale-[0.95] hover:scale-[0.98] transition"
                   />
                 </Link>
 
-                <div className="space-y-3 pl-4 sm:pl-6 lg:pl-8">
+                <div className="space-y-2 pl-4 sm:pl-6 lg:pl-8">
                   <Link
                     href="/resources"
                     onClick={() => setOpen(false)}
@@ -204,7 +203,7 @@ export default function NavSidebar() {
                       alt="Resources"
                       width={400}
                       height={100}
-                      className="w-full h-auto hover:scale-[1.02] transition"
+                      className="w-full h-auto scale-[0.95] hover:scale-[0.98] transition"
                     />
                   </Link>
 
@@ -218,32 +217,23 @@ export default function NavSidebar() {
                       alt="DIY Kits"
                       width={400}
                       height={100}
-                      className="w-full h-auto hover:scale-[1.02] transition"
+                      className="w-full h-auto scale-[0.95] hover:scale-[0.98] transition"
                     />
                   </Link>
                 </div>
               </div>
             </nav>
 
-{/* FOOTER */}
-<div className="mt-auto mb-4">
-  <div className="relative w-full flex justify-center">
-    <Image
-      src="/nav/footer.png"
-      alt="Footer"
-      width={1200}
-      height={400}
-      className="
-        w-full
-        max-w-none
-        h-auto
-      "
-    />
-  </div>
-</div>
-
-
-
+            {/* FOOTER */}
+            <div className="mt-4 flex justify-center">
+              <Image
+                src="/nav/footer.png"
+                alt="Footer"
+                width={1200}
+                height={400}
+                className="w-full max-w-none h-auto scale-[1.3]"
+              />
+            </div>
           </div>
         </div>
       </aside>
