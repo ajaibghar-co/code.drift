@@ -33,7 +33,7 @@
       "global": "let img;",
       "preload": "function preload() {\n  img = loadImage(\"a.png\"); // your image\n}",
       "setup": "function setup() {\n  createCanvas(600, 400);\n}",
-      "draw": "function draw() {\n  background(220);\n\n  //image(image, top left x position, top left y position, width, height)\n  image(img, 0, 0, width, height); //try replacing width and height with different numbers\n\n  // text styling\n  textSize(50); //size of text\n  textAlign(CENTER, CENTER);\n  stroke(0);        // outline color, try changing to some other value or color\n  strokeWeight(4);  // outline thickness\n  \n  //fill(red, green, blue)\n  fill(255, 200, 0); // text color. try combining different values to make different colors\n\n  //display the text with above styling\n  text(\"hello world\", width / 2, height / 2);\n\n}"
+      "draw": "function draw() {\n  background(220);\n\n  //image(image, top left x position, top left y position, width, height)\n  image(img, 0, 0, width, height); //try replacing width and height with different numbers\n\n  // text styling\n  textSize(50); //size of text\n  textAlign(CENTER, CENTER);\n  stroke(0);        // outline color, try changing to some other value or color\n  strokeWeight(4);  // outline thickness\n  \n  //fill(red, green, blue)\n  fill(255, 200, 0); // text color. try combining different values to make different colors\n\n  //display the text with above styling\n  text(\"Playing the code drift GAME!!\", width / 2, height / 2);\n\n}"
     }
   },
   {
@@ -63,14 +63,25 @@
   },
   {
     "id": 6,
-    "title": "Random Position",
+    "title": "Random",
     "level": 2,
-    "description": "Use the random() function to display an image at a random position on the canvas.",
+    "description": "Use random function to introduce some chaos",
     "code": {
-      "global": "// use the random function to display an image at a random place on the canvas\nlet img;",
-      "preload": "function preload() {\n  img = loadImage(\"blue.png\"); // upload your image and change image name here\n}",
-      "setup": "function setup() {\n  createCanvas(400, 400);\n  // reduce frameRate to see the random effect better. Try increasing / decreasing the value of frameRate()\n  frameRate(23);\n}",
-      "draw": "function draw() {\n  background(220);\n  // setting a random value for x\n  let x = random(0, 350);\n\n  img.resize(120, 0); // resizing the image without changing its aspect ratio. See what happens if neither of the values are zero.\n\n  // drawing the image at a random x position\n  image(img, x, 200);\n}"
+      "global": "let palette = [\n  \"#EF476F\",\n  \"#FFD166\",\n  \"#06D6A0\",\n  \"#118AB2\",\n  \"#073B4C\"\n];",
+      "setup": "function setup() {\n  createCanvas(600, 400);\n  noStroke();\n}",
+      "draw": "function draw() {\n  // Random size\n  let r = random(1, 100);\n\n  // Random color from palette\n  fill(random(palette));\n\n  // Draw circle at mouse position\n  circle(mouseX, mouseY, r);\n}"
+    }
+  },
+  {
+    "id": 7,
+    "title": "Variables",
+    "level": 2,
+    "description": "Use a variable to control the movement of an image.",
+    "code": {
+      "global": "let img;\nlet x = 0;",
+      "preload": "function preload() {\n  img = loadImage(\"myImage.jpg\"); // Replace with your image file\n}",
+      "setup": "function setup() {\n  createCanvas(600, 400);\n}",
+      "draw": "function draw() {\n  background(220);\n\n  // draw the image using the variable\n  image(img, x, 100, 200, 200);\n\n  // incrementing the value of the variable\n  x = x + 1; // try a bigger number\n}"
     }
   },
   {
