@@ -126,7 +126,32 @@
         "draw": "",
         "main": "# change the value of room to anything between 0-1 to change the apparent room size\nlive_loop :echotest do\n  with_fx :reverb, room: 0.5, mix: 0.5 do\n    use_synth :pretty_bell\n    play_pattern_timed scale(:c3, :major, num_octaves: 3), 0.125, release: 0.1\n    sleep 0.5\n  end\nend"
       }
+    },
+    {
+      "id": 12,
+      "title": "Distortion",
+      "level": 3,
+      "description": "A looping piano note sequence processed with distortion, demonstrating timbral saturation.",
+      "code": {
+        "global": "",
+        "setup": "",
+        "draw": "",
+        "main": "# change the value of distort to anything between 0-1 to change the amount of distortion\nlive_loop :echotest do\n  with_fx :distortion, distort: 0.9, mix: 0.9 do\n    use_synth :piano\n    play (ring 10, 20, 30, 40, 50).choose\n    sleep 0.5\n  end\nend"
+      }
+    },
+    {
+      "id": 13,
+      "title": "Sample Speed",
+      "level": 2,
+      "description": "An Amen break loop demonstrating how playback rate affects speed and pitch.",
+      "code": {
+        "global": "",
+        "setup": "",
+        "draw": "",
+        "main": "live_loop :speed do\n  # try changing the rate value to 0.5 to play the sample at half speed\n  # next try changing the rate value to 2 to play the sample at double speed\n  sample :loop_amen, rate: 2, finish: 0.5, amp: 1\n  sleep 1\nend"
+      }
     }
+    
     
     
     
