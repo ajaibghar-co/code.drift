@@ -265,9 +265,9 @@ export default function CodePage() {
       const next = [...prev, newPair];
       const newIndex = next.length - 1;
 
-      // new cards default to AUDIO/front side (not flipped)
+      // preserve the flip state from the modal
       setSelectedLibraryIndex(newIndex);
-      setFlipped((f) => ({ ...f, [newIndex]: false }));
+      setFlipped((f) => ({ ...f, [newIndex]: levelModalFlipped[levelModalSelected] ?? false }));
 
       return next;
     });
@@ -344,11 +344,52 @@ export default function CodePage() {
         className="flex-1 flex overflow-hidden"
         style={{ height: containerHeight }}
       >
-        {/* Left: details / code viewer */}
+        {/* Left: Level buttons - vertical */}
+        <div className="flex flex-col items-center justify-center" style={{ width: '200px', background: PAGE_BG }}>
+          {/* LEVEL BUTTONS */}
+          <div className="flex flex-col items-center justify-center gap-3">
+            {/* LEVEL 1 */}
+            <button
+              onClick={() => openLevelModal(1)}
+              className="rounded-xl transition-transform hover:scale-[1.06]"
+            >
+              <img
+                src="/code_snippets/level1.png"
+                alt="Level 1"
+                className="w-40 h-auto"
+              />
+            </button>
+
+            {/* LEVEL 2 */}
+            <button
+              onClick={() => openLevelModal(2)}
+              className="rounded-xl transition-transform hover:scale-[1.06]"
+            >
+              <img
+                src="/code_snippets/level2.png"
+                alt="Level 2"
+                className="w-40 h-auto"
+              />
+            </button>
+
+            {/* LEVEL 3 */}
+            <button
+              onClick={() => openLevelModal(3)}
+              className="rounded-xl transition-transform hover:scale-[1.06]"
+            >
+              <img
+                src="/code_snippets/level3.png"
+                alt="Level 3"
+                className="w-40 h-auto"
+              />
+            </button>
+          </div>
+        </div>
+
+        {/* Center: details / code viewer */}
         <div className="flex-1 flex flex-col overflow-hidden">
           <main
-            className="p-6 overflow-hidden"
-            style={{ height: leftMainHeight }}
+            className="p-6 overflow-hidden flex-1"
           >
 <div
   className="h-full rounded-2xl p-4 flex flex-col"
@@ -410,7 +451,7 @@ export default function CodePage() {
         color: activeSide === "audio" ? "#164938" : "#D4C36A" 
       }}
     >
-      Your library is empty — use the potion buttons below to add potions. Start with Elementary Potions.
+      Your library is empty — use the potion buttons on the left to add potions. Start with Elementary Potions.
     </div>
   ) : (
     <pre
@@ -428,61 +469,6 @@ export default function CodePage() {
 
             </div>
           </main>
-
-          {/* bottom level buttons */}
-          <div
-            style={{ height: BOTTOM_HEIGHT_PX }}
-          >
-            <div className="h-full flex items-center justify-center p-4">
-              <div className="flex items-center justify-center gap-10">
-                {/* PICK IMAGE ON THE LEFT */}
-                <img
-                  src="/code_snippets/pick.png"
-                  alt="Pick"
-                  className="w-48 h-auto opacity-95 select-none"
-                />
-
-                {/* LEVEL BUTTONS */}
-                <div className="flex items-center gap-8">
-                  {/* LEVEL 1 */}
-                  <button
-                    onClick={() => openLevelModal(1)}
-                    className="rounded-xl transition-transform hover:scale-[1.06]"
-                  >
-                    <img
-                      src="/code_snippets/level1.png"
-                      alt="Level 1"
-                      className="w-36 h-auto"
-                    />
-                  </button>
-
-                  {/* LEVEL 2 */}
-                  <button
-                    onClick={() => openLevelModal(2)}
-                    className="rounded-xl transition-transform hover:scale-[1.06]"
-                  >
-                    <img
-                      src="/code_snippets/level2.png"
-                      alt="Level 2"
-                      className="w-36 h-auto"
-                    />
-                  </button>
-
-                  {/* LEVEL 3 */}
-                  <button
-                    onClick={() => openLevelModal(3)}
-                    className="rounded-xl transition-transform hover:scale-[1.06]"
-                  >
-                    <img
-                      src="/code_snippets/level3.png"
-                      alt="Level 3"
-                      className="w-36 h-auto"
-                    />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* Right: library */}

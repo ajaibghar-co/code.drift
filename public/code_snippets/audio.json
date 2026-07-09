@@ -144,7 +144,7 @@
       "title": "Sample Speed",
       "level": 2,
       "description": "An Amen break loop demonstrating how playback rate affects speed and pitch.",
-      "code": {
+      "code": { 
         "global": "",
         "setup": "",
         "draw": "",
