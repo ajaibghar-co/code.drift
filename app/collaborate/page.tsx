@@ -2,7 +2,8 @@
 
 "use client";
 
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
+import { createPortal } from "react-dom";
 import Card from "../components/Card"; // 🔁 adjust path
 import LevelModal from "../components/LevelModal";
 import {
@@ -17,6 +18,9 @@ import {
 const HEADER_HEIGHT_PX = 64;
 const BOTTOM_HEIGHT_PX = 160;
 const PAGE_BG = "#F4E1B8";
+const GREEN_ACCENT = "#164938";
+const GOLD_ACCENT = "#D4C36A";
+const PINK_ACCENT = "#AA2E5C";
 
 const ORDERED_CODE_KEYS = ["global", "preload", "setup", "draw"] as const;
 
@@ -111,6 +115,13 @@ export default function CodePage() {
   >({});
 
   const [copied, setCopied] = useState(false);
+  const [copyNoticeVisible, setCopyNoticeVisible] = useState(false);
+  const copyNoticeTimerRef = useRef<number | null>(null);
+  const copyButtonRef = useRef<HTMLDivElement | null>(null);
+  const [copyNoticePosition, setCopyNoticePosition] = useState<{
+    left: number;
+    top: number;
+  } | null>(null);
 
   // -------- data load --------
   useEffect(() => {
@@ -166,14 +177,87 @@ export default function CodePage() {
     setFlipped((s) => ({ ...s, [idx]: !s[idx] }));
   };
 
+  const updateCopyNoticePosition = useCallback(() => {
+    const anchor = copyButtonRef.current;
+    if (!anchor) return;
+
+    const rect = anchor.getBoundingClientRect();
+
+    setCopyNoticePosition({
+      left: rect.left + rect.width / 2,
+      top: Math.max(120, rect.top - 18),
+    });
+  }, []);
+
   const copyToClipboard = useCallback(async (text: string) => {
-    try {
-      await navigator.clipboard.writeText(text);
+    const content = text ?? "";
+
+    const showNotice = () => {
+      updateCopyNoticePosition();
+      window.requestAnimationFrame(updateCopyNoticePosition);
       setCopied(true);
-      setTimeout(() => setCopied(false), 200);
+      setCopyNoticeVisible(true);
+
+      if (copyNoticeTimerRef.current) {
+        window.clearTimeout(copyNoticeTimerRef.current);
+      }
+
+      copyNoticeTimerRef.current = window.setTimeout(() => {
+        setCopyNoticeVisible(false);
+        copyNoticeTimerRef.current = null;
+      }, 4000);
+
+      window.setTimeout(() => setCopied(false), 200);
+    };
+
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(content);
+        showNotice();
+        return;
+      }
+    } catch {}
+
+    try {
+      const textArea = document.createElement("textarea");
+      textArea.value = content;
+      textArea.setAttribute("readonly", "");
+      textArea.style.position = "fixed";
+      textArea.style.left = "-9999px";
+      textArea.style.top = "-9999px";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textArea);
+      showNotice();
     } catch {
       console.log("Copy failed");
     }
+  }, [updateCopyNoticePosition]);
+
+  useEffect(() => {
+    if (!copyNoticeVisible) return;
+
+    const repositionNotice = () => {
+      updateCopyNoticePosition();
+    };
+
+    window.addEventListener("resize", repositionNotice);
+    window.addEventListener("scroll", repositionNotice, true);
+
+    return () => {
+      window.removeEventListener("resize", repositionNotice);
+      window.removeEventListener("scroll", repositionNotice, true);
+    };
+  }, [copyNoticeVisible, updateCopyNoticePosition]);
+
+  useEffect(() => {
+    return () => {
+      if (copyNoticeTimerRef.current) {
+        window.clearTimeout(copyNoticeTimerRef.current);
+      }
+    };
   }, []);
   
 
@@ -289,6 +373,31 @@ export default function CodePage() {
     return () => document.removeEventListener("keydown", onKey);
   }, [isLevelModalOpen, closeLevelModal]);
 
+  const copyNoticeOverlay =
+    typeof document !== "undefined" && copyNoticePosition
+      ? createPortal(
+          <div
+            className={`pointer-events-none fixed z-[9999] flex items-center justify-center border px-6 py-2 text-center text-sm font-medium leading-5 shadow-[0_10px_28px_rgba(22,73,56,0.18)] transition-opacity duration-700 ${
+              copyNoticeVisible ? "opacity-100" : "opacity-0"
+            }`}
+            style={{
+              background: PINK_ACCENT,
+              borderColor: GREEN_ACCENT,
+              color: GOLD_ACCENT,
+              width: "min(340px, calc(100vw - 32px))",
+              minHeight: "60px",
+              left: copyNoticePosition.left,
+              top: copyNoticePosition.top,
+              borderRadius: "999px 999px 940px 940px",
+              transform: "translate(-50%, -100%) rotate(-2deg)",
+            }}
+          >
+            Remember to paste this into a new sketch
+          </div>,
+          document.body
+        )
+      : null;
+
   // -------- render --------
 
   if (loading) {
@@ -394,8 +503,8 @@ export default function CodePage() {
 <div
   className="h-full rounded-2xl p-4 flex flex-col"
   style={{
-    background: "#F4E1B8",
-    border: "3px solid #164938",
+    background: PAGE_BG,
+    border: `3px solid ${GREEN_ACCENT}`,
   }}
 >
               <div className="flex items-center justify-between mb-4">
@@ -412,28 +521,32 @@ export default function CodePage() {
                 </div>
 
                 <div className="flex items-center gap-3">
-                <button 
-                  onClick={() => {
-                    const text = activeSide === "audio" ? selectedAudio?.code : selectedVisual?.code;
-                    copyToClipboard(text ?? "");
-                  }}
-                  disabled={selectedLibraryIndex == null}
-                  className={`
-                    transition-all
-                    ${copied ? "scale-90 copy-glow" : "scale-100 copy-glow-off"}
-                  `}
-                  style={{
-                    transition: "transform 120ms ease, box-shadow 150ms ease",
-                    borderRadius: "8px", // helps glow look cleaner
-                  }}
-                >
-                    <img
-                      src="/code_snippets/copy.png"
-                      alt="Copy"
-                      className="w-24 h-auto select-none"
-                    />
-                </button>
-
+                  <div
+                    ref={copyButtonRef}
+                    className="relative flex items-center justify-center"
+                  >
+                    <button 
+                      onClick={() => {
+                        const text = activeSide === "audio" ? selectedAudio?.code : selectedVisual?.code;
+                        copyToClipboard(text ?? "");
+                      }}
+                      disabled={selectedLibraryIndex == null}
+                      className={`
+                        transition-all
+                        ${copied ? "scale-90 copy-glow" : "scale-100 copy-glow-off"}
+                      `}
+                      style={{
+                        transition: "transform 120ms ease, box-shadow 150ms ease",
+                        borderRadius: "8px", // helps glow look cleaner
+                      }}
+                    >
+                      <img
+                        src="/code_snippets/copy.png"
+                        alt="Copy"
+                        className="w-24 h-auto select-none"
+                      />
+                    </button>
+                  </div>
                 </div>
               </div>
 
@@ -441,14 +554,14 @@ export default function CodePage() {
               <div
   className="flex-1 overflow-auto rounded-md border border-slate-100 shadow-sm"
   style={{
-    background: activeSide === "audio" ? "#D4C36A" : "#AA2E5C",
-    color: activeSide === "audio" ? "#164938" : "#D4C36A",
+    background: activeSide === "audio" ? GOLD_ACCENT : PINK_ACCENT,
+    color: activeSide === "audio" ? GREEN_ACCENT : GOLD_ACCENT,
   }}
 >
   {selectedLibraryIndex == null ? (
     <div className="p-6 text-center" 
       style={{ 
-        color: activeSide === "audio" ? "#164938" : "#D4C36A" 
+        color: activeSide === "audio" ? GREEN_ACCENT : GOLD_ACCENT 
       }}
     >
       Your library is empty — use the potion buttons on the left to add potions. Start with Elementary Potions.
@@ -457,7 +570,7 @@ export default function CodePage() {
     <pre
       className="m-0 p-4 text-sm leading-6 whitespace-pre-wrap font-mono"
       style={{
-        color: activeSide === "audio" ? "#164938" : "#D4C36A",
+        color: activeSide === "audio" ? GREEN_ACCENT : GOLD_ACCENT,
       }}
     >
       {activeSide === "audio"
@@ -532,6 +645,7 @@ export default function CodePage() {
         onClose={closeLevelModal}
         onConfirm={confirmLevelSelection}
       />
+      {copyNoticeOverlay}
     </div>
   );
 }
