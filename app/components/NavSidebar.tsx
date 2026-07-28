@@ -34,7 +34,7 @@ export default function NavSidebar() {
         onClick={() => setOpen((o) => !o)}
         className="fixed z-40 top-4 left-4 md:top-6 md:left-6 rounded-md hover:bg-[#D4C36A] transition"
       >
-        <Image src="/nav/menu.gif" alt="Menu" width={65} height={100} />
+        <Image src="/nav/menu.gif" alt="Menu" width={130} height={200} />
       </button>
 
       {/* Overlay */}
