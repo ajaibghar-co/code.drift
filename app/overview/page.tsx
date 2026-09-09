@@ -2,7 +2,7 @@
 import React from "react";
 import Image from "next/image";
 
-const BAUHAUS_RED = "#FF3B30";
+const LINK_COLOR = "rgb(43, 94, 60)";
 const TEXT_DARK = "#0F172A";
 const HEADER_COLOR = "rgb(145, 61, 91)";
 
@@ -17,31 +17,34 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
   );
 }
 
-const PHOTO_HEIGHT = 320;
-
 function Photo({ src, alt }: { src: string; alt: string }) {
   return (
-    <div
-      className="relative w-full overflow-hidden shadow-sm"
-      style={{ height: PHOTO_HEIGHT }}
-    >
-      <Image src={src} alt={alt} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
+    <div className="relative w-full overflow-hidden shadow-sm h-64 sm:h-72 md:h-80">
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        className="object-cover"
+        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+      />
     </div>
   );
 }
+
+const GRID_COLS: Record<number, string> = {
+  1: "",
+  2: "sm:grid-cols-2",
+  3: "sm:grid-cols-2 md:grid-cols-3",
+};
 
 function Gallery({
   images,
 }: {
   images: { src: string; alt: string }[];
 }) {
+  const cols = Math.min(images.length, 3);
   return (
-    <div
-      className="grid gap-4 mt-4"
-      style={{
-        gridTemplateColumns: `repeat(${Math.min(images.length, 3)}, minmax(0, 1fr))`,
-      }}
-    >
+    <div className={`grid grid-cols-1 ${GRID_COLS[cols]} gap-4 mt-4`}>
       {images.map((img) => (
         <Photo key={img.src} src={img.src} alt={img.alt} />
       ))}
@@ -111,10 +114,10 @@ export default function OverviewPage() {
 
         <Gallery
           images={[
-            { src: "/overview/hero-workshop.jpg", alt: "A room full of participants live coding on laptops" },
-            { src: "/overview/hero-stepwell.jpg", alt: "Two participants exploring a stepwell" },
             { src: "/overview/hero-picnic.jpg", alt: "The collective sitting in a circle on a lawn" },
-          ]}
+            { src: "/overview/hero-stepwell.jpg", alt: "Two participants exploring a stepwell" },
+            { src: "/overview/hero-workshop.jpg", alt: "A room full of participants live coding on laptops" },
+                  ]}
         />
 
         <main style={{ color: TEXT_DARK }}>
@@ -184,7 +187,7 @@ export default function OverviewPage() {
                 href="http://www.youtube.com/watch?v=OxoDyTAYhW0"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ color: BAUHAUS_RED, textDecoration: "underline" }}
+                style={{ color: LINK_COLOR, textDecoration: "underline" }}
               >
                 origin story
               </a>{" "}
@@ -290,7 +293,7 @@ export default function OverviewPage() {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{ color: BAUHAUS_RED, textDecoration: "underline" }}
+                    style={{ color: LINK_COLOR, textDecoration: "underline" }}
                   >
                     {link.label}
                   </a>
@@ -350,7 +353,7 @@ export default function OverviewPage() {
                 href="https://www.instagram.com/computational_mama/"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ color: BAUHAUS_RED, textDecoration: "underline" }}
+                style={{ color: LINK_COLOR, textDecoration: "underline" }}
               >
                 Computational Mama
               </a>{" "}
@@ -359,7 +362,7 @@ export default function OverviewPage() {
                 href="https://www.instagram.com/nanditi.k"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ color: BAUHAUS_RED, textDecoration: "underline" }}
+                style={{ color: LINK_COLOR, textDecoration: "underline" }}
               >
                 Nanditi
               </a>
@@ -391,7 +394,7 @@ export default function OverviewPage() {
                 href="https://www.instagram.com/ajaibghar.co/"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ color: BAUHAUS_RED, textDecoration: "underline" }}
+                style={{ color: LINK_COLOR, textDecoration: "underline" }}
               >
                 @ajaibghar.co
               </a>{" "}
@@ -400,7 +403,7 @@ export default function OverviewPage() {
                 href="https://www.ajaibghar.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ color: BAUHAUS_RED, textDecoration: "underline" }}
+                style={{ color: LINK_COLOR, textDecoration: "underline" }}
               >
                 www.ajaibghar.com
               </a>
@@ -416,7 +419,7 @@ export default function OverviewPage() {
                 href="https://codedrift.ajaibghar.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ color: BAUHAUS_RED, textDecoration: "underline" }}
+                style={{ color: LINK_COLOR, textDecoration: "underline" }}
               >
                 codedrift.ajaibghar.com
               </a>
