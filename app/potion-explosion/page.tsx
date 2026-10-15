@@ -206,7 +206,7 @@ export default function PotionExplosionsPage() {
         {/* Subhead */}
         <div className="flex justify-center mt-28">
           <Image
-            src="/potion-explosion/subhead.png"
+            src="/potion-explosion/subHead.png"
             alt="Pick a prompt"
             width={480}
             height={60}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -61,7 +61,7 @@ export default function NavSidebar() {
             className="object-cover select-none pointer-events-none"
           />
 
-          {/* CONTENT */}
+          {/* Content */}
           <div
             className="
               relative flex flex-col h-full
@@ -73,14 +73,21 @@ export default function NavSidebar() {
           >
             {/* Close */}
             <button
+              type="button"
               aria-label="Close navigation"
               onClick={() => setOpen(false)}
-              className="absolute top-3 right-3 text-sm text-[#7b1b3a] bg-[#f7cfae] rounded-full px-3 py-1 shadow-md hover:brightness-95"
+              className="absolute top-3 right-3 sm:top-4 sm:right-4 flex h-[36px] w-[36px] sm:h-[44px] sm:w-[44px] items-center justify-center rounded-full bg-[#F4E1B8] p-[2px] hover:brightness-105 transition"
             >
-              ✕
+              <Image
+                src="/nav/close.gif"
+                alt="Close"
+                width={480}
+                height={262}
+                className="h-auto w-[150%]"
+              />
             </button>
 
-            {/* TITLE */}
+            {/* Title */}
             <div className="w-[160px] sm:w-[200px] lg:w-[200px] mx-auto">
               <Image
                 src="/nav/title.png"
@@ -91,12 +98,12 @@ export default function NavSidebar() {
               />
             </div>
 
-            {/* LARGE gap: title → about */}
+            {/* Large gap: title to about */}
             <div className="mt-8 lg:mt-10" />
 
-            {/* NAV */}
+            {/* Nav */}
             <nav className="flex flex-col">
-              {/* ABOUT */}
+              {/* About */}
               <Link
                 href="/"
                 onClick={() => setOpen(false)}
@@ -111,10 +118,10 @@ export default function NavSidebar() {
                 />
               </Link>
 
-              {/* MEDIUM gap: about → next main */}
+              {/* Medium gap: about to next main */}
               <div className="mt-6" />
 
-              {/* GAME */}
+              {/* Game */}
               <Link
                 href="/how-to-play"
                 onClick={() => setOpen(false)}
@@ -129,7 +136,7 @@ export default function NavSidebar() {
                 />
               </Link>
 
-              {/* SMALL gaps: main → subs & between subs */}
+              {/* Small gaps: main to subs and between subs */}
               <div className="mt-3 space-y-2 pl-4 sm:pl-6 lg:pl-8">
                 <Link
                   href="/printables"
@@ -174,10 +181,10 @@ export default function NavSidebar() {
                 </Link>
               </div>
 
-              {/* MEDIUM gap: last sub → next main */}
+              {/* Medium gap: last sub to next main */}
               <div className="mt-6" />
 
-              {/* EXTRAS */}
+              {/* Extras */}
               <Link
                 href="/extras"
                 onClick={() => setOpen(false)}
@@ -192,11 +199,11 @@ export default function NavSidebar() {
                 />
               </Link>
 
-              {/* SMALL gaps */}
+              {/* Small gaps */}
               <div className="mt-3 space-y-2 pl-4 sm:pl-6 lg:pl-8">
                 <Link
                   href="https://docs.google.com/document/d/1H_nTvl0fe-At1COqu9F7zqz3crbdF5W5FxLiSAbdvdA/edit?usp=sharing"
-                  target="_blank" 
+                  target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setOpen(false)}
                   className="block w-[160px] sm:w-[180px] lg:w-[200px]"
@@ -226,7 +233,7 @@ export default function NavSidebar() {
               </div>
             </nav>
 
-            {/* FOOTER */}
+            {/* Footer */}
             <div className="mt-4 flex justify-center">
               <Image
                 src="/nav/footer.png"
