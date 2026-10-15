@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import InstructionsPopup from "../components/InstructionsPopup";
 
 export default function PotionExplosionsPage() {
   const [audioPrompts, setAudioPrompts] = useState<string[]>([]);
@@ -190,6 +191,12 @@ export default function PotionExplosionsPage() {
           position: relative;
         }
       `}</style>
+
+      <InstructionsPopup
+        imageSrc="/potion-explosion/instructions.png"
+        imageAlt="Instructions for potion explosions"
+        dialogLabel="Potion explosions instructions"
+      />
 
       <div className="w-full max-w-5xl px-6 py-12">
         {/* Title */}
